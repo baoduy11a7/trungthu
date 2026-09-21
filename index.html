@@ -1252,6 +1252,235 @@
     }
 
     /* ========================================================
+       🌕 CHỊ HẰNG NGA & ĐOÀN LÂN RƯỚC ĐÈN TRUNG THU
+       ======================================================== */
+    .festival-celestial-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    /* 🧚‍♀️ 1. Chị Hằng Nga bay lượn trên mây */
+    .chang-e-goddess {
+      position: absolute;
+      top: 13%;
+      right: 12%;
+      width: 175px;
+      height: auto;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 5;
+      animation: changEHoverFlight 14s ease-in-out infinite alternate;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
+      filter: drop-shadow(0 0 16px rgba(255, 233, 168, 0.85)) drop-shadow(0 0 32px rgba(255, 117, 140, 0.45));
+    }
+
+    .chang-e-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      animation: changEGentleSway 4.5s ease-in-out infinite;
+      transform-origin: center center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Hào quang ánh trăng xung quanh Chị Hằng */
+    .chang-e-halo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 130%;
+      height: 130%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 233, 168, 0.28) 0%, rgba(255, 117, 140, 0.15) 50%, transparent 75%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: changEHaloPulse 3.5s ease-in-out infinite alternate;
+    }
+
+    /* Lời chúc lãng mạn khi chạm vào Chị Hằng */
+    .chang-e-aura-text {
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: rgba(18, 10, 42, 0.92);
+      border: 1px solid rgba(255, 233, 168, 0.65);
+      color: #ffe9a8;
+      font-size: 12.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 190, 61, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .chang-e-goddess:hover .chang-e-aura-text,
+    .chang-e-goddess.show-dialogue .chang-e-aura-text {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .chang-e-goddess:hover {
+      transform: scale(1.08) translateY(-6px);
+      filter: drop-shadow(0 0 24px rgba(255, 233, 168, 1)) drop-shadow(0 0 45px rgba(255, 117, 140, 0.7));
+    }
+
+    .chang-e-goddess:active {
+      transform: scale(0.98);
+    }
+
+    @keyframes changEHoverFlight {
+      0% {
+        transform: translate(0, 0) rotate(-2deg);
+      }
+      30% {
+        transform: translate(-35px, -18px) rotate(1.5deg);
+      }
+      65% {
+        transform: translate(-70px, 12px) rotate(-3deg);
+      }
+      100% {
+        transform: translate(-105px, -24px) rotate(2deg);
+      }
+    }
+
+    @keyframes changEGentleSway {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(2deg);
+      }
+    }
+
+    @keyframes changEHaloPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0.55;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.18);
+        opacity: 0.95;
+      }
+    }
+
+    /* 🦁 2. Đoàn Lân rước đèn chạy múa trên nền trời */
+    .lion-troupe-container {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      height: 145px;
+      pointer-events: none;
+      z-index: 4;
+      overflow: visible;
+    }
+
+    .lion-troupe-wrapper {
+      position: absolute;
+      left: 100%;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 440px;
+      pointer-events: auto;
+      cursor: pointer;
+      animation: lionProcessionMarch 32s linear infinite;
+      will-change: transform;
+    }
+
+    .lion-troupe-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      animation: lionDanceBounce 1.2s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+      filter: drop-shadow(0 0 14px rgba(255, 190, 61, 0.7)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+      transition: filter 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lion-troupe-wrapper:hover .lion-troupe-img {
+      filter: drop-shadow(0 0 24px rgba(255, 190, 61, 1)) drop-shadow(0 0 35px rgba(255, 71, 87, 0.6));
+    }
+
+    /* Các nốt nhạc & ánh sáng bay theo đoàn lân */
+    .lion-troupe-notes {
+      position: absolute;
+      top: -15px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      pointer-events: none;
+    }
+
+    .l-note {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0;
+      animation: noteRise 2.4s ease-out infinite;
+    }
+
+    .l-note.n1 { left: 15%; animation-delay: 0s; }
+    .l-note.n2 { left: 35%; animation-delay: 0.7s; }
+    .l-note.n3 { left: 55%; animation-delay: 1.3s; }
+    .l-note.n4 { left: 75%; animation-delay: 1.9s; }
+    .l-note.n5 { left: 90%; animation-delay: 0.4s; }
+
+    @keyframes noteRise {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.6) rotate(-10deg);
+      }
+      40% {
+        opacity: 0.9;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-45px) scale(1.2) rotate(15deg);
+      }
+    }
+
+    /* Điệu nhảy múa tưng bừng của đoàn lân */
+    @keyframes lionDanceBounce {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      35% {
+        transform: translateY(-8px) rotate(-1.5deg) scale(1.02);
+      }
+      70% {
+        transform: translateY(-14px) rotate(2deg) scale(1.03);
+      }
+      100% {
+        transform: translateY(-4px) rotate(-1deg) scale(1);
+      }
+    }
+
+    /* Diễu hành chạy múa từ PHẢI sang TRÁI qua toàn bộ màn hình */
+    @keyframes lionProcessionMarch {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-100vw - 520px));
+      }
+    }
+
+    /* ========================================================
        🎵 HEADER CỐ ĐỊNH: NÚT NHẠC & HUY HIỆU
        ======================================================== */
     .fixed-header {
@@ -1576,36 +1805,196 @@
 
     .interactive-rabbit {
       position: absolute;
-      right: -28px;
-      top: 18px;
+      right: -36px;
+      top: 10px;
       z-index: 4;
       display: flex;
       flex-direction: column;
       align-items: center;
       filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
     }
 
-    .rabbit-figure {
-      font-size: 38px;
-      line-height: 1;
+    .rabbit-figure-img {
+      width: 76px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(255, 233, 168, 0.85)) drop-shadow(0 4px 12px rgba(255, 117, 140, 0.5));
       animation: rabbitWiggle 4s ease-in-out infinite;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .interactive-rabbit:hover .rabbit-figure-img {
+      transform: scale(1.18) translateY(-6px);
     }
 
     @keyframes rabbitWiggle {
-
-      0%,
-      90%,
-      100% {
+      0%, 90%, 100% {
         transform: rotate(0deg);
       }
-
       93% {
-        transform: rotate(-8deg) scale(1.05);
+        transform: rotate(-8deg) scale(1.06);
       }
-
       96% {
-        transform: rotate(8deg) scale(1.05);
+        transform: rotate(8deg) scale(1.06);
+      }
+    }
+
+    /* ========================================================
+       🐰 THỎ NGỌC CUTE TỰ DO DI CHUYỂN XUNG QUANH WEB
+       ======================================================== */
+    .roaming-bunny-pet {
+      position: fixed;
+      left: 78%;
+      top: 60%;
+      z-index: 60;
+      width: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: grab;
+      pointer-events: auto;
+      transition: left 2.2s cubic-bezier(0.25, 1, 0.5, 1), top 2.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+      touch-action: none;
+      filter: drop-shadow(0 0 12px rgba(255, 233, 168, 0.8)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+    }
+
+    .roaming-bunny-pet:active,
+    .roaming-bunny-pet.is-dragging {
+      cursor: grabbing;
+    }
+
+    .roaming-bunny-pet.is-dragging .roaming-bunny-avatar-wrap {
+      transform: scale(1.22) rotate(6deg) !important;
+      filter: drop-shadow(0 0 22px rgba(255, 233, 168, 1)) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.6));
+    }
+
+    .roaming-bunny-pet.is-dragging .roaming-bunny-img {
+      animation: bunnyDanglyFeet 0.35s ease-in-out infinite alternate !important;
+    }
+
+    @keyframes bunnyDanglyFeet {
+      0% {
+        transform: rotate(-5deg) translateY(-2px);
+      }
+      100% {
+        transform: rotate(5deg) translateY(3px);
+      }
+    }
+
+    /* Ẩn Thỏ Ngọc khi qua Trang 2 hoặc mở các Modal để không che nội dung */
+    .roaming-bunny-pet.hidden-scene {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transform: scale(0.5) translateY(20px) !important;
+    }
+
+    .roaming-bunny-avatar-wrap {
+      position: relative;
+      width: 100%;
+      height: auto;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .roaming-bunny-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      animation: bunnyIdleBreathe 3s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    .roaming-bunny-pet.is-hopping .roaming-bunny-img {
+      animation: bunnyHoppingHop 0.5s ease-in-out infinite alternate;
+    }
+
+    .bunny-glow-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 125%;
+      height: 125%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 233, 168, 0.35) 0%, rgba(255, 117, 140, 0.15) 55%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: bunnyAuraPulse 2.5s infinite ease-in-out alternate;
+    }
+
+    /* Bong bóng hội thoại của Thỏ Ngọc */
+    .roaming-bunny-bubble {
+      background: rgba(255, 255, 255, 0.96);
+      color: #2b0b42;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 16px;
+      white-space: nowrap;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 233, 168, 0.8);
+      border: 1.5px solid #ffbe3d;
+      pointer-events: none;
+      opacity: 0.95;
+      transform: scale(1);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .roaming-bunny-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: #ffbe3d transparent transparent;
+    }
+
+    .roaming-bunny-pet:hover .roaming-bunny-avatar-wrap {
+      transform: scale(1.18) translateY(-8px);
+    }
+
+    .roaming-bunny-pet:active .roaming-bunny-avatar-wrap {
+      transform: scale(0.95) translateY(2px);
+    }
+
+    @keyframes bunnyIdleBreathe {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        transform: translateY(-5px) scale(1.03);
+      }
+    }
+
+    @keyframes bunnyHoppingHop {
+      0% {
+        transform: translateY(0) scale(1.05, 0.92);
+      }
+      50% {
+        transform: translateY(-16px) scale(0.95, 1.08);
+      }
+      100% {
+        transform: translateY(-22px) scale(1, 1);
+      }
+    }
+
+    @keyframes bunnyAuraPulse {
+      0% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+      100% {
+        opacity: 0.85;
+        transform: translate(-50%, -50%) scale(1.15);
       }
     }
 
@@ -1889,14 +2278,21 @@
       width: 0 !important;
     }
 
-    /* Dải trượt chạy ảnh liên tục từ PHẢI sang TRÁI */
+    /* Dải trượt chạy ảnh liên tục từ PHẢI sang TRÁI - chuyển động chậm, đều và vô tận */
     .polaroid-marquee-track {
       display: flex;
       width: max-content;
-      gap: 16px;
-      animation: polaroidScroll 22s linear infinite;
+      animation: polaroidScroll 50s linear infinite;
       will-change: transform;
-      padding: 6px 12px;
+      padding: 6px 0;
+    }
+
+    .polaroid-marquee-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-right: 16px; /* Bắt buộc bằng đúng gap để tiếp nối 100% liền mạch không bị ngắt quãng */
+      flex-shrink: 0;
     }
 
     /* Tạm dừng hiệu ứng khi rê chuột hoặc chạm giữ */
@@ -2645,8 +3041,12 @@
       }
 
       .polaroid-marquee-track {
+        padding: 4px 0;
+      }
+
+      .polaroid-marquee-group {
         gap: 12px;
-        padding: 4px;
+        padding-right: 12px;
       }
 
       .polaroid-item {
@@ -2824,6 +3224,46 @@
       .cinema-anim-stage {
         height: 155px;
       }
+
+      /* Chị Hằng & Đoàn lân trên mobile */
+      .chang-e-goddess {
+        width: 125px;
+        top: 10%;
+        right: 4%;
+      }
+
+      .lion-troupe-container {
+        bottom: 8px;
+        height: 105px;
+      }
+
+      .lion-troupe-wrapper {
+        width: 290px;
+        animation-duration: 24s;
+      }
+
+      @keyframes lionProcessionMarch {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-100vw - 330px));
+        }
+      }
+
+      /* Thỏ ngọc cute trên mobile */
+      .roaming-bunny-pet {
+        width: 60px;
+      }
+
+      .roaming-bunny-bubble {
+        font-size: 11px;
+        padding: 4px 9px;
+      }
+
+      .rabbit-figure-img {
+        width: 62px;
+      }
     }
 
     /* Màn hình điện thoại nhỏ (iPhone SE, 360px - 380px) */
@@ -2979,6 +3419,43 @@
       <div class="bg-bunny bg-bunny-3">🥕</div>
     </div>
 
+    <!-- ========================================================
+         🌕 CHỊ HẰNG NGA & ĐOÀN LÂN RƯỚC ĐÈN TRUNG THU
+         ======================================================== -->
+    <div class="festival-celestial-layer" id="festival-celestial-layer">
+      <!-- 🧚‍♀️ Chị Hằng Nga bay lượn ngắm trăng -->
+      <div class="chang-e-goddess" id="chang-e-goddess" title="Chị Hằng Nga đêm rằm (Chạm để xem điều kỳ diệu)">
+        <div class="chang-e-halo"></div>
+        <img src="chi_hang.png" alt="Chị Hằng Nga bay trên mây" class="chang-e-img">
+        <div class="chang-e-aura-text" id="chang-e-dialogue">Chúc em Trung Thu ngọt ngào! 💕✨</div>
+      </div>
+
+      <!-- 🦁 Đoàn lân rước đèn tưng bừng chạy múa trên nền trời -->
+      <div class="lion-troupe-container" id="lion-troupe-container">
+        <div class="lion-troupe-wrapper" id="lion-troupe-wrapper" title="Đoàn lân rước đèn Trung Thu rộn ràng (Chạm để chúc mừng)">
+          <div class="lion-troupe-notes">
+            <span class="l-note n1">🎶</span>
+            <span class="l-note n2">🏮</span>
+            <span class="l-note n3">🎵</span>
+            <span class="l-note n4">✨</span>
+            <span class="l-note n5">⭐</span>
+          </div>
+          <img src="doan_lan.png" alt="Đoàn lân rước đèn trung thu" class="lion-troupe-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         🐰 THỎ NGỌC CUTE DI CHUYỂN XUNG QUANH WEB & TƯƠNG TÁC
+         ======================================================== -->
+    <div class="roaming-bunny-pet" id="roaming-bunny-pet" title="Thỏ Ngọc đáng yêu (Chạm vào tớ nha!)">
+      <div class="roaming-bunny-bubble" id="roaming-bunny-bubble">Chạm tớ đi! 🐰✨</div>
+      <div class="roaming-bunny-avatar-wrap" id="roaming-bunny-avatar">
+        <div class="bunny-glow-aura"></div>
+        <img src="cute_bunny.png" alt="Thỏ Ngọc Tinh Nghịch" class="roaming-bunny-img">
+      </div>
+    </div>
+
     <!-- Header cố định: Huy hiệu & Nút nhạc -->
     <header class="fixed-header">
       <div class="badge-festival">
@@ -3009,12 +3486,6 @@
           <button class="gift-box-btn" id="gift-box-btn" aria-label="Mở điều bất ngờ">
             <div id="gift-box-container" style="width: 100%; height: 100%;"></div>
           </button>
-
-          <!-- Thỏ ngọc tinh nghịch bên hộp quà -->
-          <div class="interactive-rabbit" id="interactive-rabbit-box">
-            <div class="rabbit-speech-bubble" id="rabbit-speech">Chạm tớ đi! 😉</div>
-            <div class="rabbit-figure" id="rabbit-figure-emoji">🐰</div>
-          </div>
 
           <button class="tap-action-btn" id="open-gift-btn">
             <span>Mở món quà này</span>
@@ -3096,7 +3567,7 @@
               <span class="hint-sparkle">✨</span>
             </div>
             <button type="button" class="polaroid-ctrl-btn" id="polaroid-btn-speed" aria-label="Đổi tốc độ" title="Thay đổi tốc độ chạy ảnh">
-              <span id="polaroid-speed-text">⚡ Nhanh</span>
+              <span id="polaroid-speed-text">🍃 Chậm rãi</span>
             </button>
           </div>
         </section>
@@ -3560,10 +4031,10 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
        ======================================================== */
     let marqueeSpeedIdx = 0;
     const MARQUEE_SPEEDS = [
-      { text: "⚡ Nhanh", duration: "16s" },
-      { text: "⚡ Rất nhanh", duration: "10s" },
-      { text: "🍃 Chậm rãi", duration: "32s" },
-      { text: "✨ Vừa phải", duration: "22s" }
+      { text: "🍃 Chậm rãi", duration: "50s" },
+      { text: "🌙 Rất êm dịu", duration: "75s" },
+      { text: "✨ Vừa phải", duration: "35s" },
+      { text: "⚡ Nhanh hơn", duration: "22s" }
     ];
     let isMarqueePaused = false;
 
@@ -3575,38 +4046,49 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
       const rawPhotos = CONFIG.images.photos || [];
       if (rawPhotos.length === 0) return;
 
-      // Nhân bản bộ ảnh để đảm bảo luôn có ít nhất 4 ảnh trong 1 cụm
+      // Nhân bản bộ ảnh để đảm bảo luôn có đủ số lượng ảnh lấp đầy và vượt xa màn hình
+      // Ngăn ngừa hoàn toàn hiện tượng xuất hiện khoảng trống (ngắn quãng / ngắt quãng)
       let baseSet = [...rawPhotos];
-      while (baseSet.length < 4) {
+      while (baseSet.length < 8 || (baseSet.length * 210 < window.innerWidth * 1.5)) {
         baseSet = baseSet.concat(rawPhotos);
       }
 
-      // Tạo 2 cụm liên tiếp (Set A & Set B) hoàn toàn giống hệt nhau
-      // Khi translate từ 0% sang -50%, Set B sẽ tiếp nối chuẩn từng pixel vào vị trí Set A
-      const totalPhotos = [...baseSet, ...baseSet];
+      // Tạo 2 nhóm (Group 1 và Group 2) hoàn toàn giống hệt nhau
+      // Với cấu trúc 2 Group có padding-right = gap, khi CSS animate từ 0% sang -50%
+      // Group 2 sẽ tiếp nối chính xác 100% vào vị trí của Group 1, chuyển động liên tục, đều đặn, không giật lag
+      const createGroup = (isClone = false) => {
+        const group = document.createElement('div');
+        group.className = 'polaroid-marquee-group';
+        if (isClone) group.setAttribute('aria-hidden', 'true');
 
-      totalPhotos.forEach((item, index) => {
-        const polaroid = document.createElement('div');
-        polaroid.className = 'polaroid-item';
-        polaroid.title = `${item.caption || "Khoảnh khắc ngọt ngào"} (Chạm để xem to)`;
+        baseSet.forEach((item, index) => {
+          const polaroid = document.createElement('div');
+          polaroid.className = 'polaroid-item';
+          polaroid.title = `${item.caption || "Khoảnh khắc ngọt ngào"} (Chạm để xem to)`;
 
-        const contentHtml = (item.url && item.url.trim() !== "")
-          ? `<img src="${item.url}" alt="${item.caption || 'Ảnh kỷ niệm'}" class="polaroid-img" loading="lazy" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.polaroidArt[${index % 3}]">`
-          : (SVG_FALLBACKS.polaroidArt[index % 3] || SVG_FALLBACKS.polaroidArt[0]);
+          const contentHtml = (item.url && item.url.trim() !== "")
+            ? `<img src="${item.url}" alt="${item.caption || 'Ảnh kỷ niệm'}" class="polaroid-img" loading="lazy" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.polaroidArt[${index % 3}]">`
+            : (SVG_FALLBACKS.polaroidArt[index % 3] || SVG_FALLBACKS.polaroidArt[0]);
 
-        polaroid.innerHTML = `
-          <div class="polaroid-img-box">${contentHtml}</div>
-          <div class="polaroid-caption">${item.caption || "Hạnh phúc bên em"}</div>
-        `;
+          polaroid.innerHTML = `
+            <div class="polaroid-img-box">${contentHtml}</div>
+            <div class="polaroid-caption">${item.caption || "Hạnh phúc bên em"}</div>
+          `;
 
-        // Bấm vào ảnh để mở popup xem to sắc nét
-        polaroid.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openPhotoLightbox(item.url, item.caption || "Hạnh phúc bên em", index % 3);
+          // Bấm vào ảnh để mở popup xem to sắc nét
+          polaroid.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openPhotoLightbox(item.url, item.caption || "Hạnh phúc bên em", index % 3);
+          });
+
+          group.appendChild(polaroid);
         });
 
-        carousel.appendChild(polaroid);
-      });
+        return group;
+      };
+
+      carousel.appendChild(createGroup(false));
+      carousel.appendChild(createGroup(true));
 
       setupMarqueeControls();
     }
@@ -3676,6 +4158,7 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
     }
 
     function openPhotoLightbox(url, caption, fallbackIndex) {
+      if (typeof hideRoamingBunny === 'function') hideRoamingBunny();
       const lightbox = document.getElementById('polaroid-lightbox');
       const img = document.getElementById('polaroid-lightbox-img');
       const captionEl = document.getElementById('polaroid-lightbox-caption');
@@ -3703,6 +4186,7 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
     function closePhotoLightbox() {
       const lightbox = document.getElementById('polaroid-lightbox');
       if (lightbox) lightbox.classList.remove('active');
+      if (typeof showRoamingBunny === 'function') showRoamingBunny();
     }
 
     // Đăng ký sự kiện đóng Lightbox
@@ -4295,10 +4779,13 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
     const btnSendMoreHearts = document.getElementById('btn-send-more-hearts');
     const btnReleaseLantern = document.getElementById('btn-release-lantern');
     const rabbitSpeech = document.getElementById('rabbit-speech');
-    const rabbitFigure = document.getElementById('rabbit-figure-emoji');
+    const rabbitFigureImg = document.getElementById('rabbit-figure-img');
 
     function goToScene2(e) {
       if (e) e.stopPropagation();
+
+      // Ẩn thỏ di chuyển ngay khi mở quà sang Trang 2
+      if (typeof hideRoamingBunny === 'function') hideRoamingBunny();
 
       // Âm thanh chuông & nhạc nền
       playMagicalChime();
@@ -4309,8 +4796,8 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
       triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
       // Đổi cảm xúc thỏ sang yêu thương
-      rabbitFigure.textContent = "🥰";
-      rabbitSpeech.textContent = "Yêu thương đong đầy! 💕";
+      if (rabbitFigureImg) rabbitFigureImg.style.transform = "scale(1.2) rotate(-8deg)";
+      if (rabbitSpeech) rabbitSpeech.textContent = "Yêu thương đong đầy! 💕";
 
       // Chớp sáng kỳ diệu
       flashPortal.classList.add('flash');
@@ -4334,6 +4821,9 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
       scene1.classList.remove('hidden');
       currentScene = 1;
       rabbitSpeech.textContent = "Trăng đêm nay đẹp quá! 🌕";
+
+      // Hiện lại thỏ khi quay lại Trang 1 (Trang chính)
+      if (typeof showRoamingBunny === 'function') showRoamingBunny();
     }
 
     giftClickTarget.addEventListener('click', goToScene2);
@@ -4557,6 +5047,7 @@ Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong r�
     }
 
     function openLanternStory(type) {
+      if (typeof hideRoamingBunny === 'function') hideRoamingBunny();
       playMagicalChime();
       triggerCelebration(window.innerWidth / 2, window.innerHeight * 0.4);
 
@@ -4688,6 +5179,7 @@ Dù có trải qua bao thử thách cuộc sống, hai đứa mình vẫn luôn 
     let hasTransformedToDragon = false;
 
     function startDragonTransformationSequence() {
+      if (typeof hideRoamingBunny === 'function') hideRoamingBunny();
       // 1. Đóng bảng nhỏ để tập trung vào màn chiếu điện ảnh
       closeLanternStory();
 
@@ -4742,6 +5234,7 @@ Dù có trải qua bao thử thách cuộc sống, hai đứa mình vẫn luôn 
 
     function closeLanternStory() {
       lanternModal.classList.remove('active');
+      if (typeof showRoamingBunny === 'function') showRoamingBunny();
     }
 
     document.getElementById('btn-lantern-rabbit').addEventListener('click', () => openLanternStory('rabbit'));
@@ -4764,7 +5257,7 @@ Dù có trải qua bao thử thách cuộc sống, hai đứa mình vẫn luôn 
     const spawnItems = ['💖', '✨', '🌕', '🐰', '💕', '⭐', '🏮'];
     function handleScreenTap(e) {
       if (currentScene !== 1) return;
-      if (e.target.closest('button, .lantern-unit, .gift-interactive-wrapper, .fixed-header, .lantern-modal-overlay')) return;
+      if (e.target.closest('button, .lantern-unit, .gift-interactive-wrapper, .fixed-header, .lantern-modal-overlay, .chang-e-goddess, .lion-troupe-wrapper, .roaming-bunny-pet, .interactive-rabbit')) return;
 
       const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : window.innerWidth / 2);
       const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : window.innerHeight / 2);
@@ -4781,6 +5274,309 @@ Dù có trải qua bao thử thách cuộc sống, hai đứa mình vẫn luôn 
 
     window.addEventListener('click', handleScreenTap);
     window.addEventListener('touchstart', handleScreenTap, { passive: true });
+
+    /* ========================================================
+       🧚‍♀️ TƯƠNG TÁC KỲ DIỆU VỚI CHỊ HẰNG & ĐOÀN LÂN
+       ======================================================== */
+    const changEMessages = [
+      "Ánh trăng đẹp nhất là khi có em bên cạnh! 🌕💕",
+      "Chúc em Trung Thu luôn rạng rỡ và an yên! ✨",
+      "Thỏ ngọc gửi tặng em vạn điều ước ngọt ngào! 🐰💖",
+      "Đêm trăng tròn vẹn, tình yêu đong đầy! 🌙✨",
+      "Em là ánh trăng dịu dàng nhất trần đời! 🌸🥰"
+    ];
+    let changEMsgIdx = 0;
+
+    const changEEl = document.getElementById('chang-e-goddess');
+    const changEDialogue = document.getElementById('chang-e-dialogue');
+    if (changEEl) {
+      changEEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        changEMsgIdx = (changEMsgIdx + 1) % changEMessages.length;
+        if (changEDialogue) {
+          changEDialogue.textContent = changEMessages[changEMsgIdx];
+        }
+        changEEl.classList.add('show-dialogue');
+        setTimeout(() => changEEl.classList.remove('show-dialogue'), 4000);
+
+        playMagicalChime();
+        const rect = changEEl.getBoundingClientRect();
+        triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      });
+    }
+
+    const lionTroupeEl = document.getElementById('lion-troupe-wrapper');
+    if (lionTroupeEl) {
+      lionTroupeEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playMagicalChime();
+        const rect = lionTroupeEl.getBoundingClientRect();
+        triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        
+        // Nhún nhảy tung tăng vui nhộn khi được chạm
+        lionTroupeEl.style.transform = 'scale(1.12) translateY(-18px)';
+        setTimeout(() => {
+          lionTroupeEl.style.transform = '';
+        }, 600);
+      });
+    }
+
+    /* ========================================================
+       🐰 THỎ NGỌC CUTE DI CHUYỂN & KÉO THẢ THEO CHUỘT
+       ======================================================== */
+    const roamingBunny = document.getElementById('roaming-bunny-pet');
+    const roamingBubble = document.getElementById('roaming-bunny-bubble');
+    const roamingAvatar = document.getElementById('roaming-bunny-avatar');
+
+    const bunnyQuotes = [
+      "Cậu chạm tớ làm tớ ngại quá nè! 🥰💖",
+      "Tặng cậu một trái tim ấm áp mùa Trung Thu! 🌸✨",
+      "Tớ là Thỏ Ngọc đây, chúc cậu luôn cười thật tươi nha! 🐰",
+      "Ánh trăng đêm nay đẹp ghê, đi dạo cùng tớ không? 🌕",
+      "Tớ mang bánh Trung Thu ngon xỉu cho cậu nè! 🥮😋",
+      "Nhún nhún nhảy nhảy, vui ơi là vui! 🎶💃",
+      "Mỗi lần cậu chạm là tớ thêm 1000 điểm dễ thương đó! 💕",
+      "Hai người đêm nay nhớ ngắm trăng cùng nhau nhé! 🌙✨"
+    ];
+    let bunnyQuoteIdx = 0;
+    let bunnyCurrentX = window.innerWidth * 0.75;
+    let bunnyCurrentY = window.innerHeight * 0.65;
+    let isBunnyPaused = false;
+    let bunnyMoveTimer = null;
+
+    // Trạng thái kéo thả theo chuột / ngón tay
+    let isDraggingBunny = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let bunnyInitLeft = 0;
+    let bunnyInitTop = 0;
+    let hasMovedDuringDrag = false;
+
+    function hideRoamingBunny() {
+      if (roamingBunny) {
+        roamingBunny.classList.add('hidden-scene');
+      }
+    }
+
+    function showRoamingBunny() {
+      // Thỏ CHỈ xuất hiện khi ở đúng Trang 1 (Trang chính) và không có bất kỳ Modal nào đang mở!
+      const isLanternOpen = lanternModal && lanternModal.classList.contains('active');
+      const isCinemaOpen = dragonCinemaOverlay && dragonCinemaOverlay.classList.contains('active');
+      const isLightboxOpen = document.getElementById('polaroid-lightbox') && document.getElementById('polaroid-lightbox').classList.contains('active');
+
+      if (currentScene === 1 && !isLanternOpen && !isCinemaOpen && !isLightboxOpen) {
+        if (roamingBunny) {
+          roamingBunny.classList.remove('hidden-scene');
+        }
+      } else {
+        hideRoamingBunny();
+      }
+    }
+
+    function moveBunnyTo(x, y) {
+      if (!roamingBunny || isDraggingBunny) return;
+      if (currentScene !== 1) return; // Tuyệt đối không di chuyển nếu không phải Trang 1
+      const isLeft = x < bunnyCurrentX;
+      bunnyCurrentX = x;
+      bunnyCurrentY = y;
+
+      // Xoay mặt thỏ theo hướng di chuyển
+      if (roamingAvatar) {
+        roamingAvatar.style.transform = isLeft ? 'scaleX(-1)' : 'scaleX(1)';
+      }
+
+      roamingBunny.classList.add('is-hopping');
+      roamingBunny.style.left = `${x}px`;
+      roamingBunny.style.top = `${y}px`;
+
+      // Sau khi nhảy tới nơi, chuyển về trạng thái thở êm đềm
+      setTimeout(() => {
+        if (!isDraggingBunny && roamingBunny) {
+          roamingBunny.classList.remove('is-hopping');
+        }
+      }, 2300);
+    }
+
+    function roamBunnyRandomly() {
+      // CHỈ di chuyển khi đang ở đúng Trang 1 (Trang chính)
+      if (currentScene !== 1 || isBunnyPaused || isDraggingBunny) return;
+      if (roamingBunny && roamingBunny.classList.contains('hidden-scene')) return;
+      const isLanternOpen = lanternModal && lanternModal.classList.contains('active');
+      const isCinemaOpen = dragonCinemaOverlay && dragonCinemaOverlay.classList.contains('active');
+      const isLightboxOpen = document.getElementById('polaroid-lightbox') && document.getElementById('polaroid-lightbox').classList.contains('active');
+      if (isLanternOpen || isCinemaOpen || isLightboxOpen) return;
+
+      const padding = 50;
+      const maxX = Math.max(padding, window.innerWidth - 130);
+      const maxY = Math.max(padding, window.innerHeight - 150);
+      const nextX = Math.floor(Math.random() * (maxX - padding)) + padding;
+      const nextY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+      moveBunnyTo(nextX, nextY);
+    }
+
+    function triggerBunnyReaction(e) {
+      if (e) e.stopPropagation();
+      playMagicalChime();
+
+      // Đổi câu thoại dễ thương
+      bunnyQuoteIdx = (bunnyQuoteIdx + 1) % bunnyQuotes.length;
+      if (roamingBubble) {
+        roamingBubble.textContent = bunnyQuotes[bunnyQuoteIdx];
+        roamingBubble.style.opacity = '1';
+        roamingBubble.style.transform = 'scale(1.08)';
+        setTimeout(() => {
+          if (roamingBubble) roamingBubble.style.transform = 'scale(1)';
+        }, 300);
+      }
+
+      // Pháo hoa và tim bung tỏa quanh chú thỏ
+      const rect = roamingBunny.getBoundingClientRect();
+      triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      // Nhảy cẫng lên ăn mừng
+      if (roamingAvatar) {
+        roamingAvatar.style.transform = 'scale(1.25) translateY(-25px)';
+        setTimeout(() => {
+          if (roamingAvatar && !isDraggingBunny) roamingAvatar.style.transform = '';
+        }, 500);
+      }
+
+      // Tạm dừng di chuyển một chút để người xem ngắm thỏ
+      isBunnyPaused = true;
+      clearTimeout(bunnyMoveTimer);
+      bunnyMoveTimer = setTimeout(() => {
+        isBunnyPaused = false;
+        if (currentScene === 1) roamBunnyRandomly();
+      }, 5000);
+    }
+
+    // Xử lý kéo thả thỏ theo chuột / ngón tay (Drag & Drop)
+    function onBunnyPointerDown(e) {
+      if (currentScene !== 1) return;
+      if (roamingBunny.classList.contains('hidden-scene')) return;
+
+      isDraggingBunny = true;
+      hasMovedDuringDrag = false;
+      isBunnyPaused = true;
+      clearTimeout(bunnyMoveTimer);
+
+      const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+
+      dragStartX = clientX;
+      dragStartY = clientY;
+
+      const rect = roamingBunny.getBoundingClientRect();
+      bunnyInitLeft = rect.left;
+      bunnyInitTop = rect.top;
+
+      // Hủy transition tạm thời để kéo mượt theo chuột
+      roamingBunny.style.transition = 'none';
+      roamingBunny.classList.add('is-dragging');
+      roamingBunny.classList.remove('is-hopping');
+    }
+
+    function onBunnyPointerMove(e) {
+      if (!isDraggingBunny) return;
+
+      const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+
+      const dx = clientX - dragStartX;
+      const dy = clientY - dragStartY;
+
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        hasMovedDuringDrag = true;
+        if (e.cancelable) e.preventDefault();
+      }
+
+      if (hasMovedDuringDrag) {
+        let newX = bunnyInitLeft + dx;
+        let newY = bunnyInitTop + dy;
+
+        // Giới hạn trong khung nhìn màn hình
+        newX = Math.max(10, Math.min(window.innerWidth - 85, newX));
+        newY = Math.max(10, Math.min(window.innerHeight - 110, newY));
+
+        roamingBunny.style.left = `${newX}px`;
+        roamingBunny.style.top = `${newY}px`;
+        bunnyCurrentX = newX;
+        bunnyCurrentY = newY;
+
+        // Xoay thỏ và chân lúc lắc theo hướng kéo
+        if (roamingAvatar) {
+          roamingAvatar.style.transform = (dx < 0) ? 'scaleX(-1) rotate(-6deg)' : 'scaleX(1) rotate(6deg)';
+        }
+
+        if (roamingBubble) {
+          roamingBubble.textContent = "Oa oa cậu bế tớ đi đâu thế! 😆🐾";
+          roamingBubble.style.opacity = '1';
+        }
+      }
+    }
+
+    function onBunnyPointerUp(e) {
+      if (!isDraggingBunny) return;
+      isDraggingBunny = false;
+
+      roamingBunny.classList.remove('is-dragging');
+      // Phục hồi transition mượt mà
+      roamingBunny.style.transition = 'left 2.2s cubic-bezier(0.25, 1, 0.5, 1), top 2.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease';
+
+      if (hasMovedDuringDrag) {
+        // Vừa được kéo thả đến chỗ mới
+        playMagicalChime();
+        const rect = roamingBunny.getBoundingClientRect();
+        triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+        if (roamingBubble) {
+          roamingBubble.textContent = "Đến nơi rùi! Cảm ơn cậu nha! 💖🐰";
+          setTimeout(() => {
+            if (roamingBubble && !isDraggingBunny) roamingBubble.textContent = "Chạm tớ đi! 🐰✨";
+          }, 3500);
+        }
+
+        if (roamingAvatar) {
+          roamingAvatar.style.transform = 'scale(1.15) translateY(-10px)';
+          setTimeout(() => {
+            if (roamingAvatar && !isDraggingBunny) roamingAvatar.style.transform = '';
+          }, 400);
+        }
+
+        // Tạm dừng 4.5s ở vị trí mới rồi mới tiếp tục đi dạo
+        clearTimeout(bunnyMoveTimer);
+        bunnyMoveTimer = setTimeout(() => {
+          isBunnyPaused = false;
+          if (currentScene === 1) roamBunnyRandomly();
+        }, 4500);
+      } else {
+        // Chỉ là chạm / nhấp chuột -> gọi phản ứng chạm vui nhộn
+        triggerBunnyReaction(e);
+      }
+    }
+
+    if (roamingBunny) {
+      roamingBunny.addEventListener('mousedown', onBunnyPointerDown);
+      roamingBunny.addEventListener('touchstart', onBunnyPointerDown, { passive: false });
+
+      window.addEventListener('mousemove', onBunnyPointerMove, { passive: false });
+      window.addEventListener('touchmove', onBunnyPointerMove, { passive: false });
+
+      window.addEventListener('mouseup', onBunnyPointerUp);
+      window.addEventListener('touchend', onBunnyPointerUp);
+
+      // Khởi động chu trình đi dạo quanh web của Thỏ Ngọc (chỉ khi ở Trang 1)
+      setTimeout(() => {
+        showRoamingBunny();
+        roamBunnyRandomly();
+        setInterval(() => {
+          if (currentScene === 1 && !isDraggingBunny) {
+            roamBunnyRandomly();
+          }
+        }, 7500);
+      }, 1500);
+    }
 
     /* ========================================================
        🚀 KHỞI ĐỘNG ỨNG DỤNG
