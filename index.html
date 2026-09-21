@@ -1,0 +1,4797 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0033">
+  <meta name="description" content="Thiệp chúc Tết Trung Thu lãng mạn, dễ thương và lung linh dành tặng người yêu">
+  <title>Đêm Trăng Yêu Thương - Chúc Mừng Tết Trung Thu</title>
+
+  <!-- Google Fonts: Quicksand & Dancing Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       🎨 BIẾN CSS & RESET CƠ BẢN (MOBILE FIRST)
+       ======================================================== */
+    :root {
+      --sky-start: #0b0033;
+      --sky-end: #03000f;
+      --moon-glow: #ffe9a8;
+      --moon-core: #fff7d6;
+      --accent-pink: #ff758c;
+      --accent-gold: #ffbe3d;
+      --card-bg: rgba(18, 10, 42, 0.9);
+      --card-border: rgba(255, 233, 168, 0.4);
+      --text-main: #fff8f0;
+      --text-muted: #e4d8ff;
+      --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-romantic: 'Dancing Script', cursive;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      min-height: 100dvh;
+      overflow: hidden;
+      font-family: var(--font-body);
+      background-color: var(--sky-end);
+      color: var(--text-main);
+      touch-action: manipulation;
+    }
+
+    /* Khung ứng dụng toàn màn hình */
+    #app-container {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--sky-start) 0%, #150036 50%, var(--sky-end) 100%);
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    /* Canvas vẽ sao lấp lánh, đom đóm & sao băng */
+    #stars-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Lớp chứa đèn trời bay lên */
+    #sky-lanterns-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* ========================================================
+       🌕 BẦU TRỜ: MẶT TRĂNG & MÂY TRÔI
+       ======================================================== */
+    .sky-scenery {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .moon-wrapper {
+      position: absolute;
+      top: calc(var(--safe-top) + 22px);
+      right: 8%;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: moonBreath 6s ease-in-out infinite alternate;
+      will-change: transform, filter;
+      transition: all 0.6s ease;
+    }
+
+    @keyframes moonBreath {
+      0% {
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 0 25px rgba(255, 233, 168, 0.75)) drop-shadow(0 0 60px rgba(255, 206, 86, 0.4));
+      }
+
+      100% {
+        transform: scale(1.05) translateY(-4px);
+        filter: drop-shadow(0 0 38px rgba(255, 233, 168, 0.95)) drop-shadow(0 0 90px rgba(255, 193, 37, 0.65));
+      }
+    }
+
+    .moon-element {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--moon-core) 45%, #ffd466 75%, #f5b041 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset -10px -10px 25px rgba(184, 115, 15, 0.35);
+    }
+
+    .moon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* Mây trôi lững lờ */
+    .clouds-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .cloud {
+      position: absolute;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(210, 190, 255, 0.06) 100%);
+      border-radius: 100px;
+      filter: blur(4px);
+      animation: cloudDrift linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 170px;
+      height: 42px;
+      top: calc(var(--safe-top) + 85px);
+      left: -180px;
+      animation-duration: 38s;
+      opacity: 0.85;
+    }
+
+    .cloud-1::before {
+      width: 65px;
+      height: 65px;
+      top: -30px;
+      left: 25px;
+    }
+
+    .cloud-1::after {
+      width: 50px;
+      height: 50px;
+      top: -20px;
+      left: 80px;
+    }
+
+    .cloud-2 {
+      width: 220px;
+      height: 50px;
+      top: calc(var(--safe-top) + 30px);
+      left: -230px;
+      animation-duration: 52s;
+      animation-delay: -18s;
+      opacity: 0.6;
+    }
+
+    .cloud-2::before {
+      width: 85px;
+      height: 85px;
+      top: -38px;
+      left: 35px;
+    }
+
+    .cloud-2::after {
+      width: 68px;
+      height: 68px;
+      top: -26px;
+      left: 110px;
+    }
+
+    @keyframes cloudDrift {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(100vw + 260px));
+      }
+    }
+
+    /* ========================================================
+       🏮 LỒNG ĐÈN ĐU ĐƯA THEO GIÓ
+       ======================================================== */
+    .lantern-hangers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 10px;
+      pointer-events: none;
+      z-index: 45;
+      transition: opacity 0.5s ease;
+    }
+
+    .lantern-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: top center;
+      animation: swingLantern 4.5s ease-in-out infinite alternate;
+      will-change: transform;
+      filter: drop-shadow(0 4px 15px rgba(255, 90, 95, 0.45));
+      pointer-events: auto;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .lantern-unit:hover {
+      transform: scale(1.15) translateY(2px) !important;
+      filter: drop-shadow(0 0 20px rgba(255, 233, 168, 0.95));
+    }
+
+    .lantern-unit:active {
+      transform: scale(0.92);
+    }
+
+    .lantern-unit.rabbit {
+      animation-duration: 4.2s;
+    }
+
+    .lantern-unit.lion {
+      animation-duration: 5s;
+      animation-delay: -1.4s;
+      margin-top: 4px;
+    }
+
+    .lantern-unit.carp {
+      animation-duration: 4.6s;
+      animation-delay: -2.6s;
+    }
+
+    @keyframes swingLantern {
+      0% {
+        transform: rotate(-5.5deg);
+      }
+
+      100% {
+        transform: rotate(5.5deg);
+      }
+    }
+
+    .lantern-string {
+      width: 2px;
+      height: 38px;
+      background: linear-gradient(180deg, #ffd700, #ff4444);
+    }
+
+    .lantern-body {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .lantern-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 12px rgba(255, 233, 168, 0.55));
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .lantern-tassel {
+      width: 2px;
+      height: 24px;
+      background: #ff3366;
+      position: relative;
+    }
+
+    .lantern-tassel::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -4px;
+      width: 10px;
+      height: 14px;
+      background: #ffbe3d;
+      border-radius: 2px 2px 50% 50%;
+    }
+
+    .lantern-tag-hint {
+      background: rgba(255, 233, 168, 0.92);
+      color: #310842;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      white-space: nowrap;
+      margin-top: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      border: 1px solid #ffd466;
+      animation: hintGlow 2s infinite alternate;
+    }
+
+    @keyframes hintGlow {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+
+      100% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    /* ========================================================
+       🏮 MODAL BÍ MẬT TRUNG THU KHI NHẤN LỒNG ĐÈN
+       ======================================================== */
+    .lantern-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      background: rgba(4, 1, 14, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 300;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: calc(var(--safe-top) + 20px) calc(var(--safe-right) + 16px) calc(var(--safe-bottom) + 20px) calc(var(--safe-left) + 16px);
+    }
+
+    .lantern-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lantern-story-card {
+      width: 100%;
+      max-width: 440px;
+      max-height: 88dvh;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 26px;
+      padding: 26px 20px 22px 20px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 233, 168, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transform: scale(0.85) translateY(25px);
+      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .lantern-modal-overlay.active .lantern-story-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .drum-pads-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0;
+      width: 100%;
+    }
+
+    .btn-drum-pad {
+      flex: 1;
+      min-height: 44px;
+      padding: 10px 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.5px solid #ffbe3d;
+      border-radius: 14px;
+      color: #ffe9a8;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-drum-pad:active {
+      transform: scale(0.92);
+      background: #ffbe3d;
+      color: #310842;
+    }
+
+    .fortune-result-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(255, 233, 168, 0.45);
+      border-radius: 16px;
+      padding: 14px;
+      margin: 10px 0;
+      color: #fff6d9;
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.55;
+      animation: popInBubble 0.4s ease-out;
+    }
+
+    /* ========================================================
+       🎲 CÂU ĐỐ TRUNG THU TRẮC NGHIỆM 3 ĐÁP ÁN (LỒNG ĐÈN LÂN)
+       ======================================================== */
+    .riddle-question-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1.5px solid rgba(255, 233, 168, 0.35);
+      border-radius: 18px;
+      padding: 14px 12px;
+      margin: 10px 0 6px 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      animation: popInBubble 0.35s ease-out;
+    }
+
+    .riddle-q-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffe9a8;
+      line-height: 1.45;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .riddle-instruction {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      margin-left: 2px;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .riddle-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      width: 100%;
+    }
+
+    .riddle-option-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 233, 168, 0.25);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-align: left;
+      width: 100%;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .riddle-option-btn:hover:not(.disabled) {
+      background: rgba(255, 233, 168, 0.16);
+      border-color: #ffbe3d;
+      transform: translateX(3px);
+      box-shadow: 0 4px 12px rgba(255, 190, 61, 0.25);
+    }
+
+    .riddle-option-btn:active:not(.disabled) {
+      transform: scale(0.98);
+    }
+
+    .riddle-opt-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 190, 61, 0.2);
+      border: 1px solid #ffbe3d;
+      color: #ffe9a8;
+      font-size: 11.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .riddle-opt-text {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.35;
+      flex: 1;
+    }
+
+    /* Trạng thái chọn đúng: viền xanh, hào quang rực rỡ */
+    .riddle-option-btn.is-correct {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.3) 0%, rgba(255, 190, 61, 0.25) 100%) !important;
+      border-color: #4ade80 !important;
+      box-shadow: 0 0 16px rgba(74, 222, 128, 0.5) !important;
+      color: #ffffff !important;
+    }
+
+    .riddle-option-btn.is-correct .riddle-opt-letter {
+      background: #4ade80 !important;
+      color: #064e3b !important;
+      border-color: #ffffff !important;
+    }
+
+    /* Trạng thái chọn sai: rung nhẹ & viền đỏ */
+    .riddle-option-btn.is-wrong {
+      background: rgba(239, 68, 68, 0.28) !important;
+      border-color: #ef4444 !important;
+      animation: shakeWrong 0.5s ease;
+    }
+
+    @keyframes shakeWrong {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .riddle-option-btn.disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* Khung kết quả hiển thị sau khi chọn */
+    .riddle-feedback {
+      margin-top: 10px;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.45;
+      animation: popInBubble 0.3s ease-out;
+    }
+
+    .riddle-feedback.correct-feedback {
+      background: rgba(34, 197, 94, 0.16);
+      border: 1.5px solid rgba(74, 222, 128, 0.6);
+      color: #dcfce7;
+    }
+
+    .riddle-feedback.correct-feedback .fb-header {
+      color: #86efac;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .riddle-feedback.correct-feedback .fb-content {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .riddle-feedback.wrong-feedback {
+      background: rgba(239, 68, 68, 0.16);
+      border: 1.5px solid rgba(248, 113, 113, 0.5);
+      color: #fee2e2;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ========================================================
+       🐟 HIỆU ỨNG LUNG LINH: CÁ CHÉP VƯỢT VŨ MÔN HÓA RỒNG
+       ======================================================== */
+    .btn-release-carp-sparkle {
+      background: linear-gradient(135deg, rgba(255, 122, 69, 0.35) 0%, rgba(56, 189, 248, 0.45) 50%, rgba(255, 215, 0, 0.35) 100%) !important;
+      background-size: 200% 200% !important;
+      animation: carpOceanShimmer 3.5s ease infinite alternate !important;
+      border: 1.5px solid #38bdf8 !important;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(255, 215, 0, 0.25) !important;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .btn-release-carp-sparkle::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: rotate(25deg);
+      animation: sweepCarpGleam 2.8s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sweepCarpGleam {
+      0% {
+        transform: translateX(-100%) rotate(25deg);
+      }
+
+      50%,
+      100% {
+        transform: translateX(100%) rotate(25deg);
+      }
+    }
+
+    @keyframes carpOceanShimmer {
+      0% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.5), 0 0 30px rgba(255, 180, 0, 0.35);
+      }
+
+      100% {
+        background-position: 100% 50%;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.85), 0 0 45px rgba(255, 120, 80, 0.65);
+      }
+    }
+
+    /* Hiệu ứng cá chép nhào lộn nhảy qua Vũ Môn */
+    .carp-leaping-anim {
+      animation: leapOverDragonGate 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    }
+
+    @keyframes leapOverDragonGate {
+      0% {
+        transform: scale(1) translateY(0) rotate(0deg);
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+      }
+
+      30% {
+        transform: scale(1.35) translateY(-36px) rotate(-15deg);
+        filter: drop-shadow(0 0 35px #ffd700) drop-shadow(0 0 60px #38bdf8);
+      }
+
+      60% {
+        transform: scale(1.25) translateY(-20px) rotate(12deg);
+        filter: drop-shadow(0 0 40px #ff758c) drop-shadow(0 0 70px #ffd700);
+      }
+
+      85% {
+        transform: scale(1.08) translateY(-6px) rotate(-4deg);
+        filter: drop-shadow(0 0 25px #38bdf8);
+      }
+
+      100% {
+        transform: scale(1) translateY(0) rotate(0deg);
+        filter: drop-shadow(0 6px 16px rgba(255, 140, 80, 0.7));
+      }
+    }
+
+    /* Gợn sóng nước lan tỏa (Water Ripples) */
+    .carp-water-ripple {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 350;
+      border: 2px solid rgba(56, 189, 248, 0.85);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), inset 0 0 15px rgba(255, 233, 168, 0.5);
+      animation: expandRipple 1.4s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes expandRipple {
+      0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(4.8);
+        opacity: 0;
+      }
+    }
+
+    /* Đàn cá chép & bọt khí lung linh bơi vút lên */
+    .swimming-carp-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 360;
+      animation: swimAndRise 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.85));
+    }
+
+    @keyframes swimAndRise {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3) rotate(var(--swim-rot, 0deg));
+      }
+
+      15% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--dx1, 0px)), calc(-50% + var(--dy1, -60px))) scale(1.25) rotate(calc(var(--swim-rot, 0deg) + 12deg));
+      }
+
+      60% {
+        opacity: 0.95;
+        transform: translate(calc(-50% + var(--dx2, 0px)), calc(-50% + var(--dy2, -180px))) scale(1.1) rotate(calc(var(--swim-rot, 0deg) - 15deg));
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx3, 0px)), calc(-50% + var(--dy3, -320px))) scale(0.7) rotate(var(--swim-rot, 0deg));
+      }
+    }
+
+    /* Bảng chúc phúc hóa rồng lộng lẫy */
+    .carp-dragon-card {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.25) 0%, rgba(255, 180, 0, 0.28) 100%) !important;
+      border: 1.5px solid #ffd700 !important;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.3) !important;
+      animation: popDragonCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popDragonCard {
+      0% {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .dragon-header {
+      color: #ffd700;
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .dragon-desc {
+      color: #e0f2fe;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .dragon-blessing {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 233, 168, 0.4);
+      line-height: 1.5;
+    }
+
+    /* ========================================================
+       🐉 HIỆU ỨNG RỒNG VÀNG THĂNG THIÊN (FULL-SCREEN FLYING DRAGON)
+       ======================================================== */
+    .soaring-dragon-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 500;
+      overflow: hidden;
+    }
+
+    .flying-dragon-entity {
+      position: absolute;
+      width: clamp(200px, 50vw, 340px);
+      height: clamp(200px, 50vw, 340px);
+      filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.95)) drop-shadow(0 0 65px rgba(255, 117, 140, 0.7));
+      animation: dragonFlightPath 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    .flying-dragon-entity img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: dragonHoverWiggle 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes dragonFlightPath {
+      0% {
+        opacity: 0;
+        transform: translate(-30vw, 85vh) scale(0.35) rotate(-35deg);
+      }
+
+      15% {
+        opacity: 1;
+        transform: translate(10vw, 55vh) scale(0.9) rotate(-10deg);
+      }
+
+      45% {
+        opacity: 1;
+        transform: translate(50vw, 35vh) scale(1.25) rotate(18deg);
+      }
+
+      75% {
+        opacity: 0.95;
+        transform: translate(35vw, 15vh) scale(1.1) rotate(-8deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(95vw, -30vh) scale(0.65) rotate(25deg);
+      }
+    }
+
+    @keyframes dragonHoverWiggle {
+      0% {
+        transform: translateY(0) rotate(-2deg);
+      }
+
+      100% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+    }
+
+    /* Vệt hào quang rồng lượn (Dragon Trail Particles) */
+    .dragon-trail-sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 495;
+      font-size: 24px;
+      animation: dragonSparkleFade 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 12px #ffd700);
+    }
+
+    @keyframes dragonSparkleFade {
+      0% {
+        transform: translate(-50%, -50%) scale(1.3) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(calc(-50% + var(--tdx, 0px)), calc(-50% + var(--tdy, 40px))) scale(0.2) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    /* Vòng tròn ma thuật biến hình (Transformation Portal) */
+    .dragon-gate-portal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 130px;
+      height: 130px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 3px dashed #ffd700;
+      box-shadow: 0 0 35px #ffd700, inset 0 0 25px #38bdf8;
+      animation: spinPortal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    @keyframes spinPortal {
+      0% {
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+        opacity: 0;
+      }
+
+      40% {
+        transform: translate(-50%, -50%) scale(1.3) rotate(360deg);
+        opacity: 1;
+      }
+
+      80% {
+        transform: translate(-50%, -50%) scale(1.6) rotate(720deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(2) rotate(1080deg);
+        opacity: 0;
+      }
+    }
+
+    .icon-transforming {
+      animation: morphPulse 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes morphPulse {
+      0% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 10px #38bdf8);
+      }
+
+      40% {
+        transform: scale(1.5) rotate(15deg);
+        filter: drop-shadow(0 0 45px #ffd700) brightness(1.6);
+      }
+
+      70% {
+        transform: scale(1.35) rotate(-10deg);
+        filter: drop-shadow(0 0 50px #ff758c) brightness(1.8);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 6px 20px rgba(255, 190, 61, 0.9));
+      }
+    }
+
+    /* ========================================================
+       🐉 MÀN CHIẾU ĐIỆN ẢNH: CÁ CHÉP HÓA RỒNG TOÀN MÀN HÌNH
+       ======================================================== */
+    .dragon-cinema-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 16px;
+    }
+
+    .dragon-cinema-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .dragon-cinema-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(30, 8, 55, 0.96) 0%, rgba(5, 1, 18, 0.98) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .dragon-cinema-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 420px;
+      max-height: 90dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: rgba(22, 10, 48, 0.94);
+      border: 2px solid #ffd700;
+      border-radius: 30px;
+      padding: 30px 22px 24px 22px;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.5), inset 0 0 30px rgba(255, 180, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transform: scale(0.85);
+      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dragon-cinema-overlay.active .dragon-cinema-content {
+      transform: scale(1);
+    }
+
+    .close-cinema-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: #ffd700;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .close-cinema-btn:hover {
+      background: #ffd700;
+      color: #1e0837;
+    }
+
+    .dragon-cinema-badge {
+      background: rgba(255, 215, 0, 0.2);
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    .dragon-morph-stage {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 6px 0 14px 0;
+    }
+
+    .morph-magic-portal {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px dashed #ffd700;
+      box-shadow: 0 0 30px #ffd700, inset 0 0 20px #38bdf8;
+      animation: spinPortalFast 3s linear infinite;
+    }
+
+    @keyframes spinPortalFast {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .morph-glow-halo {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.45) 0%, rgba(255, 117, 140, 0.2) 60%, transparent 80%);
+      animation: breatheHalo 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes breatheHalo {
+      0% {
+        transform: scale(0.85);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.25);
+        opacity: 1;
+      }
+    }
+
+    .morph-avatar-box {
+      position: relative;
+      z-index: 3;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .morph-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: all 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .morph-avatar-img.carp-mode {
+      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 35px rgba(255, 140, 80, 0.6));
+      animation: carpSwimFloat 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes carpSwimFloat {
+      0% {
+        transform: translateY(0) rotate(-4deg);
+      }
+
+      100% {
+        transform: translateY(-10px) rotate(4deg);
+      }
+    }
+
+    .morph-avatar-img.dragon-mode {
+      filter: drop-shadow(0 0 30px #ffd700) drop-shadow(0 0 55px rgba(255, 80, 120, 0.85));
+      animation: dragonHoverFloat 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes dragonHoverFloat {
+      0% {
+        transform: translateY(0) scale(1.05) rotate(-2deg);
+      }
+
+      100% {
+        transform: translateY(-12px) scale(1.15) rotate(2deg);
+      }
+    }
+
+    .dragon-cinema-title {
+      font-family: var(--font-romantic);
+      font-size: 30px;
+      color: #ffe9a8;
+      text-shadow: 0 0 15px rgba(255, 233, 168, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .dragon-cinema-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 18px;
+    }
+
+    .dragon-cinema-actions {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* ========================================================
+       🐰 THỎ NHẢY NHÓT NỀN
+       ======================================================== */
+    .bg-bunnies-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .bg-bunny {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 10px rgba(255, 233, 168, 0.65));
+      animation: floatBunnyPath ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .bg-bunny-1 {
+      left: 8%;
+      bottom: 22%;
+      animation-duration: 6.5s;
+    }
+
+    .bg-bunny-2 {
+      right: 12%;
+      bottom: 28%;
+      animation-duration: 8s;
+      animation-delay: -3s;
+    }
+
+    .bg-bunny-3 {
+      left: 20%;
+      top: 24%;
+      font-size: 18px;
+      opacity: 0.55;
+      animation-duration: 9.5s;
+      animation-delay: -5s;
+    }
+
+    @keyframes floatBunnyPath {
+      0% {
+        transform: translate(0, 0) rotate(-6deg) scale(0.95);
+      }
+
+      50% {
+        transform: translate(14px, -24px) rotate(4deg) scale(1.05);
+      }
+
+      100% {
+        transform: translate(-10px, -45px) rotate(-4deg) scale(1);
+      }
+    }
+
+    /* ========================================================
+       🎵 HEADER CỐ ĐỊNH: NÚT NHẠC & HUY HIỆU
+       ======================================================== */
+    .fixed-header {
+      position: absolute;
+      top: calc(var(--safe-top) + 12px);
+      left: 0;
+      width: 100%;
+      padding: 0 calc(var(--safe-right) + 16px) 0 calc(var(--safe-left) + 16px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .badge-festival {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 233, 168, 0.35);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffe9a8;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .badge-festival span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-gold);
+      box-shadow: 0 0 8px var(--accent-gold);
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+      }
+    }
+
+    .music-btn {
+      pointer-events: auto;
+      min-width: 44px;
+      min-height: 44px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 233, 168, 0.4);
+      color: #ffe9a8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 0.22);
+      border-color: #ffe9a8;
+    }
+
+    .music-btn:active {
+      transform: scale(0.94);
+    }
+
+    .music-btn.playing {
+      animation: spinVinyl 5s linear infinite;
+      box-shadow: 0 0 16px rgba(255, 233, 168, 0.6);
+      border-color: var(--accent-gold);
+    }
+
+    @keyframes spinVinyl {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .music-note-float {
+      position: absolute;
+      top: -10px;
+      right: -8px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .music-btn.playing .music-note-float {
+      animation: noteFloat 2s infinite ease-out;
+    }
+
+    @keyframes noteFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(-12px) scale(1.1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-24px) scale(0.8);
+      }
+    }
+
+    /* ========================================================
+       🎭 QUẢN LÝ CÁC TRANG (SCENE ARCHITECTURE)
+       ======================================================== */
+    .scene-view {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s ease;
+      will-change: transform, opacity;
+    }
+
+    /* TRANG 1: Mở đầu đêm trăng */
+    #scene-1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: calc(var(--safe-top) + 60px) calc(var(--safe-right) + 16px) calc(var(--safe-bottom) + 24px) calc(var(--safe-left) + 16px);
+      z-index: 10;
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    #scene-1.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.92);
+      pointer-events: none;
+    }
+
+    /* TRANG 2: Trang thiệp chúc, kỷ niệm & thả đèn */
+    #scene-2 {
+      z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(40px) scale(0.96);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: calc(var(--safe-top) + 70px) calc(var(--safe-right) + 16px) calc(var(--safe-bottom) + 30px) calc(var(--safe-left) + 16px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    #scene-2.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* ========================================================
+       🎁 NỘI DUNG TRANG 1: HỘP QUÀ / BÁNH TRUNG THU TRUNG TÂM
+       ======================================================== */
+    .center-stage {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: auto 0;
+    }
+
+    .invitation-bubble {
+      margin-bottom: 24px;
+      animation: floatGentle 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGentle {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .invitation-bubble h2 {
+      font-family: var(--font-romantic);
+      font-size: clamp(28px, 7vw, 36px);
+      font-weight: 700;
+      color: #ffe9a8;
+      text-shadow: 0 0 16px rgba(255, 233, 168, 0.6), 0 2px 5px rgba(0, 0, 0, 0.8);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .invitation-bubble p {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    .gift-interactive-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      padding: 14px;
+      touch-action: manipulation;
+    }
+
+    .gift-glow-ring {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 190, 61, 0.45) 0%, rgba(255, 117, 140, 0.25) 50%, transparent 70%);
+      animation: pulseRing 3.5s ease-in-out infinite alternate;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+
+    .gift-box-btn {
+      position: relative;
+      z-index: 3;
+      width: 125px;
+      height: 125px;
+      border: none;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: giftBounce 2.6s ease-in-out infinite;
+    }
+
+    .gift-interactive-wrapper:hover .gift-box-btn {
+      transform: scale(1.12) rotate(2deg);
+    }
+
+    .gift-interactive-wrapper:active .gift-box-btn {
+      transform: scale(0.92);
+    }
+
+    @keyframes giftBounce {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      20% {
+        transform: translateY(-8px) rotate(-3deg);
+      }
+
+      40% {
+        transform: translateY(0) rotate(2deg);
+      }
+
+      60% {
+        transform: translateY(-4px) rotate(-1deg);
+      }
+
+      80% {
+        transform: translateY(0) rotate(0);
+      }
+    }
+
+    .gift-img-asset {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 15px rgba(255, 190, 61, 0.6));
+    }
+
+    .interactive-rabbit {
+      position: absolute;
+      right: -28px;
+      top: 18px;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+      pointer-events: none;
+    }
+
+    .rabbit-figure {
+      font-size: 38px;
+      line-height: 1;
+      animation: rabbitWiggle 4s ease-in-out infinite;
+    }
+
+    @keyframes rabbitWiggle {
+
+      0%,
+      90%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      93% {
+        transform: rotate(-8deg) scale(1.05);
+      }
+
+      96% {
+        transform: rotate(8deg) scale(1.05);
+      }
+    }
+
+    .rabbit-speech-bubble {
+      background: rgba(255, 255, 255, 0.95);
+      color: #2b0b42;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 14px;
+      white-space: nowrap;
+      margin-bottom: 4px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      border: 1.5px solid #ffd466;
+    }
+
+    .tap-action-btn {
+      margin-top: 38px;
+      min-height: 48px;
+      padding: 13px 28px;
+      background: linear-gradient(135deg, #ff758c 0%, #ff5e62 50%, #ffbe3d 100%);
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 25px rgba(255, 107, 107, 0.5), 0 0 15px rgba(255, 190, 61, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+    }
+
+    .tap-action-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .tap-action-btn:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    /* ========================================================
+       💌 NỘI DUNG TRANG 2: THIỆP CHÚC, KỶ NIỆM & THẢ ĐÈN TRỜI
+       ======================================================== */
+    .page-card-container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 20px;
+    }
+
+    /* Khối lời chúc chính (Lá thư tình Trung Thu) */
+    .romantic-letter-box {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 26px;
+      padding: 26px 20px 22px 20px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 233, 168, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .card-header-badge {
+      font-size: 13px;
+      color: #ffbe3d;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title {
+      font-family: var(--font-romantic);
+      font-size: clamp(30px, 8vw, 38px);
+      color: #fff5d6;
+      text-shadow: 0 0 14px rgba(255, 233, 168, 0.6);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    /* Đồng hồ đếm thời gian yêu nhau */
+    .love-timer-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px dashed rgba(255, 233, 168, 0.4);
+      border-radius: 18px;
+      padding: 12px 10px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .love-timer-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffe9a8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .love-timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .timer-unit {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 2px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 233, 168, 0.2);
+    }
+
+    .timer-num {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffbe3d;
+      font-family: monospace;
+      line-height: 1.1;
+    }
+
+    .timer-lbl {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .card-rabbit-emblem {
+      font-size: 48px;
+      margin: 8px 0 12px 0;
+      filter: drop-shadow(0 0 14px rgba(255, 233, 168, 0.5));
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      14% {
+        transform: scale(1.12);
+      }
+
+      28% {
+        transform: scale(1);
+      }
+
+      42% {
+        transform: scale(1.1);
+      }
+
+      70% {
+        transform: scale(1);
+      }
+    }
+
+    .card-body-text {
+      width: 100%;
+      font-size: 16px;
+      line-height: 1.72;
+      color: #fcf6ff;
+      text-align: center;
+      white-space: pre-line;
+      margin-bottom: 20px;
+      padding: 0 4px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      background: linear-gradient(180deg, #ffffff 0%, #ffecee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card-footer-signature {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-right: 8px;
+    }
+
+    .signature-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .signature-name {
+      font-family: var(--font-romantic);
+      font-size: 28px;
+      color: #ffbe3d;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(255, 190, 61, 0.5);
+    }
+
+    /* ========================================================
+       📸 ALBUM ẢNH POLAROID KỶ NIỆM (TRANG 2) - HIỆU ỨNG CHẠY TỪ PHẢI SANG TRÁI
+       ======================================================== */
+    .polaroid-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 26px;
+      padding: 20px 14px 16px 14px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 233, 168, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffe9a8;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-shadow: 0 0 10px rgba(255, 233, 168, 0.4);
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: livePulse 2s infinite ease-in-out;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .live-dot.paused {
+      background: #ffbe3d;
+      box-shadow: 0 0 8px #ffbe3d;
+      animation: none;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+
+    /* Khung chứa hiệu ứng chạy ảnh với viền mờ 2 bên tạo chiều sâu */
+    .polaroid-marquee-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 10px 0 16px 0;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+    }
+
+    .polaroid-marquee-wrapper::-webkit-scrollbar,
+    .polaroid-marquee-track::-webkit-scrollbar,
+    .polaroid-carousel::-webkit-scrollbar {
+      display: none !important;
+      height: 0 !important;
+      width: 0 !important;
+    }
+
+    /* Dải trượt chạy ảnh liên tục từ PHẢI sang TRÁI */
+    .polaroid-marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 16px;
+      animation: polaroidScroll 22s linear infinite;
+      will-change: transform;
+      padding: 6px 12px;
+    }
+
+    /* Tạm dừng hiệu ứng khi rê chuột hoặc chạm giữ */
+    .polaroid-marquee-wrapper:hover .polaroid-marquee-track,
+    .polaroid-marquee-wrapper.is-paused .polaroid-marquee-track {
+      animation-play-state: paused !important;
+    }
+
+    @keyframes polaroidScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Thẻ ảnh Polaroid phong cách hoài niệm ngọt ngào */
+    .polaroid-item {
+      flex: 0 0 190px;
+      background: #ffffff;
+      padding: 10px 10px 14px 10px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 1px rgba(255, 255, 255, 0.8);
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, filter 0.35s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Băng keo Washi tape trang trí đầu ảnh */
+    .polaroid-item::after {
+      content: "";
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 14px;
+      background: rgba(255, 233, 168, 0.75);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+      border-radius: 2px;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .polaroid-item:nth-child(6n + 1) { --rot: -2.5deg; }
+    .polaroid-item:nth-child(6n + 2) { --rot: 2.2deg; }
+    .polaroid-item:nth-child(6n + 3) { --rot: -1.5deg; }
+    .polaroid-item:nth-child(6n + 4) { --rot: 2.8deg; }
+    .polaroid-item:nth-child(6n + 5) { --rot: -2deg; }
+    .polaroid-item:nth-child(6n + 6) { --rot: 1.8deg; }
+
+    /* Khi rê chuột vào ảnh: xoay thẳng, nổi bật lên và tỏa ánh sáng vàng ấm áp */
+    .polaroid-item:hover {
+      transform: translateY(-8px) scale(1.06) rotate(0deg) !important;
+      box-shadow: 0 20px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(255, 190, 61, 0.55);
+      z-index: 20;
+      filter: brightness(1.02);
+    }
+
+    .polaroid-item:active {
+      transform: translateY(-4px) scale(1.02) rotate(0deg);
+    }
+
+    .polaroid-img-box {
+      width: 100%;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #2b1147;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .polaroid-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .polaroid-item:hover .polaroid-img {
+      transform: scale(1.06);
+    }
+
+    .polaroid-caption {
+      margin-top: 10px;
+      font-family: var(--font-romantic);
+      font-size: 19px;
+      font-weight: 700;
+      color: #33154a;
+      text-align: center;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 2px;
+    }
+
+    /* Thanh điều khiển & gợi ý bên dưới album ảnh */
+    .polaroid-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 4px;
+      padding: 0 6px;
+    }
+
+    .polaroid-ctrl-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 233, 168, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffe9a8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .polaroid-ctrl-btn:hover {
+      background: rgba(255, 233, 168, 0.28);
+      color: #ffffff;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(255, 233, 168, 0.4);
+    }
+
+    .polaroid-ctrl-btn:active {
+      transform: scale(0.95);
+    }
+
+    .polaroid-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+      opacity: 0.9;
+      letter-spacing: 0.2px;
+    }
+
+    .hint-sparkle {
+      font-size: 12px;
+      animation: sparkleRotate 3s infinite ease-in-out;
+    }
+
+    @keyframes sparkleRotate {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+      50% { transform: scale(1.25) rotate(15deg); opacity: 1; }
+    }
+
+    /* Modal phóng to ảnh Polaroid lung linh khi bấm vào */
+    .polaroid-lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .polaroid-lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .polaroid-lightbox-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 0, 20, 0.88);
+      backdrop-filter: blur(8px);
+    }
+
+    .polaroid-lightbox-card {
+      position: relative;
+      z-index: 2;
+      background: #ffffff;
+      padding: 14px 14px 18px 14px;
+      border-radius: 18px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(255, 190, 61, 0.45);
+      max-width: 440px;
+      width: 100%;
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .polaroid-lightbox.active .polaroid-lightbox-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .polaroid-lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: #ff4757;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      z-index: 10;
+    }
+
+    .polaroid-lightbox-close:hover {
+      transform: scale(1.15) rotate(90deg);
+      background: #ff1e32;
+    }
+
+    .polaroid-lightbox-img-box {
+      width: 100%;
+      max-height: 60vh;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #190829;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .polaroid-lightbox-img {
+      width: 100%;
+      height: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .polaroid-lightbox-caption {
+      margin-top: 14px;
+      font-family: var(--font-romantic);
+      font-size: 24px;
+      font-weight: 700;
+      color: #33154a;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ========================================================
+       🏮 KHU VỰC THẢ ĐÈN TRỜI ƯỚC NGUYỆN (TRANG 2)
+       ======================================================== */
+    .wish-lantern-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 26px;
+      padding: 22px 18px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .wish-list-box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 12px 0 18px 0;
+    }
+
+    .wish-item-btn {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 233, 168, 0.3);
+      border-radius: 16px;
+      color: #fff8eb;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .wish-item-btn:hover,
+    .wish-item-btn.selected {
+      background: rgba(255, 190, 61, 0.2);
+      border-color: #ffbe3d;
+      transform: translateX(4px);
+    }
+
+    .btn-release-lantern {
+      width: 100%;
+      min-height: 48px;
+      background: linear-gradient(135deg, #ff9f43 0%, #ff5252 100%);
+      border: none;
+      border-radius: 25px;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(255, 82, 82, 0.5);
+      transition: all 0.25s ease;
+    }
+
+    .btn-release-lantern:active {
+      transform: scale(0.97);
+    }
+
+    /* ========================================================
+       ✨ HÀNH ĐỘNG ĐIỀU HƯỚNG CHÂN TRANG 2
+       ======================================================== */
+    .page-actions-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn-send-heart {
+      width: 100%;
+      min-height: 48px;
+      background: linear-gradient(135deg, #ff5376 0%, #ff8e53 100%);
+      border: none;
+      border-radius: 25px;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 15.5px;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(255, 83, 118, 0.5);
+      transition: all 0.25s ease;
+    }
+
+    .btn-send-heart:active {
+      transform: scale(0.97);
+    }
+
+    .btn-back-scene1 {
+      width: 100%;
+      min-height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 233, 168, 0.35);
+      border-radius: 25px;
+      color: #ffe9a8;
+      font-family: var(--font-body);
+      font-size: 14.5px;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-back-scene1:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ========================================================
+       🏮 HIỆU ỨNG ĐÈN TRỜI BAY (SKY LANTERN PARTICLES)
+       ======================================================== */
+    .floating-sky-lantern {
+      position: absolute;
+      bottom: -80px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: riseSkyLantern ease-in forwards;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 16px rgba(255, 170, 0, 0.85));
+    }
+
+    @keyframes riseSkyLantern {
+      0% {
+        transform: translateY(0) scale(var(--l-scale, 0.8)) rotate(0deg);
+        opacity: 0;
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateY(-55vh) scale(calc(var(--l-scale, 0.8) * 1.08)) rotate(5deg);
+      }
+
+      80% {
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(-120vh) scale(calc(var(--l-scale, 0.8) * 0.88)) rotate(-5deg);
+        opacity: 0;
+      }
+    }
+
+    .lantern-flame-core {
+      width: 32px;
+      height: 42px;
+      background: radial-gradient(ellipse at 50% 60%, #ffffff 0%, #ffeaa7 35%, #ff7675 80%, #d63031 100%);
+      border-radius: 8px 8px 16px 16px;
+      position: relative;
+    }
+
+    .lantern-flame-glow {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 6px #ffeaa7;
+      animation: flickerFlame 0.8s infinite alternate;
+    }
+
+    @keyframes flickerFlame {
+      0% {
+        transform: translateX(-50%) scale(0.9);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    .lantern-wish-label {
+      background: rgba(0, 0, 0, 0.65);
+      color: #ffe9a8;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 8px;
+      white-space: nowrap;
+      margin-top: 4px;
+      border: 1px solid rgba(255, 233, 168, 0.3);
+    }
+
+    /* ========================================================
+       ✨ CHẠM MÀN HÌNH NẢY THỎ & TIM (TAP EFFECT)
+       ======================================================== */
+    .tap-spawn-item {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 26px;
+      animation: tapPopFloat 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes tapPopFloat {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.9;
+        transform: translate(-50%, -100px) scale(1.25) rotate(15deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -150px) scale(0.9) rotate(-15deg);
+      }
+    }
+
+    /* Pháo hoa giấy confetti */
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      z-index: 101;
+      border-radius: 2px;
+      will-change: transform, opacity;
+    }
+
+    /* Hiệu ứng chớp sáng chuyển cảnh */
+    .flash-portal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 233, 168, 0.7) 0%, rgba(255, 117, 140, 0.4) 50%, transparent 80%);
+      pointer-events: none;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .flash-portal-overlay.flash {
+      opacity: 1;
+    }
+
+    /* ========================================================
+       📱 TỐI ƯU DESKTOP
+       ======================================================== */
+    /* ========================================================
+       📱 TỐI ƯU GIAO DIỆN DI ĐỘNG (MOBILE FIRST & RESPONSIVE)
+       ======================================================== */
+    /* Thanh cuộn mảnh nghệ thuật cho các khối cuộn trên di động */
+    #scene-2::-webkit-scrollbar,
+    .lantern-story-card::-webkit-scrollbar,
+    .dragon-cinema-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    #scene-2::-webkit-scrollbar-thumb,
+    .lantern-story-card::-webkit-scrollbar-thumb,
+    .dragon-cinema-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 233, 168, 0.35);
+      border-radius: 4px;
+    }
+
+    /* Tối ưu cho màn hình di động phổ thông (<= 640px) */
+    @media (max-width: 640px) {
+      /* Header & Nút nhạc */
+      .fixed-header {
+        top: calc(var(--safe-top) + 8px);
+        padding: 0 calc(var(--safe-right) + 10px) 0 calc(var(--safe-left) + 10px);
+      }
+
+      .badge-festival {
+        font-size: 11.5px;
+        padding: 4px 10px;
+        gap: 5px;
+      }
+
+      .music-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+        font-size: 16px;
+      }
+
+      /* 3 lồng đèn thu gọn tinh tế, không che khuất trăng hay chữ */
+      .lantern-hangers {
+        padding: 0 4px;
+      }
+
+      .lantern-string {
+        height: 22px;
+      }
+
+      .lantern-body {
+        width: 52px;
+        height: 52px;
+      }
+
+      .lantern-tassel {
+        height: 16px;
+      }
+
+      .lantern-tag-hint {
+        font-size: 9px;
+        padding: 1px 5px;
+        margin-top: 2px;
+      }
+
+      /* Mặt trăng rằm trên mobile */
+      .moon-wrapper {
+        width: 105px;
+        height: 105px;
+        top: calc(var(--safe-top) + 18px);
+        right: 6%;
+      }
+
+      /* TRANG 1 TRÊN MOBILE */
+      #scene-1 {
+        padding: calc(var(--safe-top) + 68px) 14px calc(var(--safe-bottom) + 20px) 14px;
+      }
+
+      .invitation-bubble {
+        margin-bottom: 16px;
+      }
+
+      .invitation-bubble h2 {
+        font-size: clamp(23px, 6.5vw, 29px);
+      }
+
+      .invitation-bubble p {
+        font-size: 13.5px;
+        padding: 0 6px;
+        line-height: 1.45;
+      }
+
+      .gift-glow-ring {
+        width: 145px;
+        height: 145px;
+      }
+
+      .gift-box-btn {
+        width: 108px;
+        height: 108px;
+      }
+
+      .interactive-rabbit {
+        right: -12px;
+        top: 6px;
+      }
+
+      .rabbit-figure {
+        font-size: 32px;
+      }
+
+      .rabbit-speech-bubble {
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+
+      .tap-action-btn {
+        margin-top: 26px;
+        padding: 11px 24px;
+        font-size: 14.5px;
+        min-height: 44px;
+        width: min(270px, 86vw);
+        justify-content: center;
+      }
+
+      /* TRANG 2 TRÊN MOBILE */
+      #scene-2 {
+        padding: calc(var(--safe-top) + 54px) 10px calc(var(--safe-bottom) + 26px) 10px;
+        overscroll-behavior-y: contain;
+      }
+
+      .page-card-container {
+        gap: 15px;
+        padding-bottom: 20px;
+      }
+
+      .romantic-letter-box {
+        padding: 20px 14px 18px 14px;
+        border-radius: 22px;
+      }
+
+      .card-header-badge {
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+
+      .card-title {
+        font-size: clamp(25px, 7.5vw, 32px);
+        margin-bottom: 8px;
+      }
+
+      .card-rabbit-emblem {
+        font-size: 30px;
+        margin: 4px 0 8px 0;
+      }
+
+      .card-body-text {
+        font-size: 14px;
+        line-height: 1.68;
+        letter-spacing: 0.1px;
+      }
+
+      .signature-name {
+        font-size: 25px;
+      }
+
+      /* Đồng hồ tình yêu trên mobile */
+      .love-timer-card {
+        padding: 10px 6px;
+        border-radius: 14px;
+        margin-bottom: 12px;
+      }
+
+      .love-timer-title {
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+
+      .love-timer-grid {
+        gap: 6px;
+      }
+
+      .timer-unit {
+        min-width: 0;
+        flex: 1;
+        padding: 6px 2px;
+        border-radius: 10px;
+      }
+
+      .timer-num {
+        font-size: 18px;
+      }
+
+      .timer-lbl {
+        font-size: 10px;
+      }
+
+      /* Dải Polaroid chạy mượt trên mobile */
+      .polaroid-section {
+        padding: 16px 10px 14px 10px;
+        border-radius: 22px;
+      }
+
+      .polaroid-marquee-wrapper {
+        padding: 8px 0 12px 0;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 18px, black calc(100% - 18px), transparent 100%);
+      }
+
+      .polaroid-marquee-track {
+        gap: 12px;
+        padding: 4px;
+      }
+
+      .polaroid-item {
+        flex: 0 0 170px;
+        padding: 8px 8px 12px 8px;
+        border-radius: 10px;
+      }
+
+      .polaroid-img-box {
+        height: 140px;
+        border-radius: 6px;
+      }
+
+      .polaroid-caption {
+        font-size: 16px;
+        margin-top: 6px;
+      }
+
+      .polaroid-controls {
+        padding: 0 2px;
+      }
+
+      .polaroid-ctrl-btn {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 6px;
+        font-size: 11px;
+      }
+
+      .polaroid-hint {
+        font-size: 11px;
+        gap: 3px;
+      }
+
+      /* Khu thả đèn ước nguyện trên mobile */
+      .wish-lantern-section {
+        padding: 18px 12px;
+        border-radius: 22px;
+      }
+
+      .wish-list-box {
+        gap: 8px;
+        margin: 10px 0 14px 0;
+      }
+
+      .wish-item-btn {
+        padding: 10px 10px;
+        font-size: 13px;
+        border-radius: 12px;
+        gap: 8px;
+      }
+
+      .btn-release-lantern {
+        min-height: 44px;
+        font-size: 14.5px;
+        border-radius: 22px;
+      }
+
+      .page-actions-group {
+        gap: 8px;
+        margin-top: 2px;
+      }
+
+      .btn-send-heart {
+        min-height: 44px;
+        font-size: 14.5px;
+      }
+
+      .btn-back-scene1 {
+        min-height: 40px;
+        font-size: 13.5px;
+      }
+
+      /* Modal Popup trên mobile */
+      .lantern-modal-overlay {
+        padding: calc(var(--safe-top) + 8px) 10px calc(var(--safe-bottom) + 8px) 10px;
+      }
+
+      .lantern-story-card {
+        max-height: 90dvh;
+        padding: 20px 14px 18px 14px;
+        border-radius: 22px;
+        max-width: 95vw;
+      }
+
+      .lantern-story-title {
+        font-size: 21px;
+      }
+
+      .drum-pads-row {
+        gap: 6px;
+        margin: 8px 0;
+      }
+
+      .btn-drum-pad {
+        min-height: 40px;
+        font-size: 12px;
+        padding: 6px 2px;
+        border-radius: 10px;
+      }
+
+      .riddle-question-card {
+        padding: 10px 8px;
+        border-radius: 14px;
+      }
+
+      .riddle-q-title {
+        font-size: 12.5px;
+      }
+
+      .riddle-option-btn {
+        padding: 8px 9px;
+        font-size: 12px;
+        gap: 7px;
+        border-radius: 10px;
+      }
+
+      .riddle-opt-letter {
+        width: 21px;
+        height: 21px;
+        font-size: 11px;
+      }
+
+      .riddle-opt-text {
+        font-size: 12px;
+      }
+
+      .riddle-feedback {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      /* Lightbox trên mobile */
+      .polaroid-lightbox {
+        padding: 12px;
+      }
+
+      .polaroid-lightbox-card {
+        padding: 10px 10px 14px 10px;
+        border-radius: 16px;
+        max-width: 94vw;
+      }
+
+      .polaroid-lightbox-img-box {
+        max-height: 52vh;
+        border-radius: 10px;
+      }
+
+      .polaroid-lightbox-close {
+        top: -10px;
+        right: -8px;
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+
+      .polaroid-lightbox-caption {
+        font-size: 20px;
+        margin-top: 10px;
+      }
+
+      /* Dragon cinema trên mobile */
+      .dragon-cinema-content {
+        padding: 20px 14px 18px 14px;
+        border-radius: 22px;
+        max-width: 95vw;
+        max-height: 90dvh;
+      }
+
+      .dragon-cinema-title {
+        font-size: 22px;
+        margin: 8px 0;
+      }
+
+      .cinema-anim-stage {
+        height: 155px;
+      }
+    }
+
+    /* Màn hình điện thoại nhỏ (iPhone SE, 360px - 380px) */
+    @media (max-width: 380px) {
+      .lantern-body {
+        width: 44px;
+        height: 44px;
+      }
+
+      .lantern-string {
+        height: 16px;
+      }
+
+      .gift-box-btn {
+        width: 96px;
+        height: 96px;
+      }
+
+      .interactive-rabbit {
+        right: -6px;
+        top: 2px;
+      }
+
+      .rabbit-figure {
+        font-size: 28px;
+      }
+
+      .polaroid-item {
+        flex: 0 0 155px;
+      }
+
+      .polaroid-img-box {
+        height: 125px;
+      }
+
+      .card-title {
+        font-size: 24px;
+      }
+
+      .timer-num {
+        font-size: 16px;
+      }
+    }
+
+    /* ========================================================
+       🖥️ TỐI ƯU MÀN HÌNH LỚN / DESKTOP (>= 768px)
+       ======================================================== */
+    @media (min-width: 768px) {
+      .moon-wrapper {
+        width: 150px;
+        height: 150px;
+        right: 15%;
+        top: 35px;
+      }
+
+      .lantern-body {
+        width: 78px;
+        height: 78px;
+      }
+
+      .gift-box-btn {
+        width: 145px;
+        height: 145px;
+      }
+
+      .interactive-rabbit {
+        right: -34px;
+        top: 22px;
+      }
+
+      .tap-action-btn {
+        margin-top: 42px;
+      }
+
+      .invitation-bubble h2 {
+        font-size: 40px;
+      }
+
+      .invitation-bubble p {
+        font-size: 16px;
+      }
+
+      .card-title {
+        font-size: 42px;
+      }
+
+      .card-body-text {
+        font-size: 17px;
+      }
+
+      .polaroid-item {
+        flex: 0 0 220px;
+      }
+
+      .polaroid-img-box {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Khung bao ứng dụng toàn màn hình -->
+  <div id="app-container">
+
+    <!-- Canvas sao lấp lánh & đom đóm & sao băng -->
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Lớp chứa đàn đèn trời ước nguyện -->
+    <div id="sky-lanterns-container"></div>
+
+    <!-- Bầu trời: Trăng rằm & Mây trôi -->
+    <div class="sky-scenery">
+      <div class="moon-wrapper" id="moon-container"></div>
+      <div class="clouds-layer">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+      </div>
+    </div>
+
+    <!-- 3 Lồng đèn tương tác đặc sắc: Thỏ Cute, Lân Sư Rồng, Cá Chép Dễ Thương -->
+    <div class="lantern-hangers" id="lantern-hangers">
+      <!-- 1. Lồng đèn Thỏ Cute -->
+      <div class="lantern-unit rabbit" id="btn-lantern-rabbit" title="Chạm xem bí mật Thỏ Ngọc">
+        <div class="lantern-string"></div>
+        <div class="lantern-body" id="lantern-rabbit-container"></div>
+        <div class="lantern-tassel"></div>
+        <span class="lantern-tag-hint">Thỏ Cute 🐰</span>
+      </div>
+
+      <!-- 2. Lồng đèn Lân Sư Rồng -->
+      <div class="lantern-unit lion" id="btn-lantern-lion" title="Chạm xem múa Lân Sư Rồng">
+        <div class="lantern-string"></div>
+        <div class="lantern-body" id="lantern-lion-container"></div>
+        <div class="lantern-tassel"></div>
+        <span class="lantern-tag-hint">Múa Lân 🦁</span>
+      </div>
+
+      <!-- 3. Lồng đèn Cá Chép Dễ Thương -->
+      <div class="lantern-unit carp" id="btn-lantern-carp" title="Chạm xem tích Cá Chép Vọng Nguyệt">
+        <div class="lantern-string"></div>
+        <div class="lantern-body" id="lantern-carp-container"></div>
+        <div class="lantern-tassel"></div>
+        <span class="lantern-tag-hint">Cá Chép 🐟</span>
+      </div>
+    </div>
+
+    <!-- Chú thỏ nhảy nhót trên nền -->
+    <div class="bg-bunnies-container">
+      <div class="bg-bunny bg-bunny-1">🐰</div>
+      <div class="bg-bunny bg-bunny-2">🐇</div>
+      <div class="bg-bunny bg-bunny-3">🥕</div>
+    </div>
+
+    <!-- Header cố định: Huy hiệu & Nút nhạc -->
+    <header class="fixed-header">
+      <div class="badge-festival">
+        <span class="dot"></span>
+        <span id="header-festival-title">Tết Đoàn Viên 🌕</span>
+      </div>
+
+      <button class="music-btn" id="music-toggle-btn" aria-label="Bật/Tắt nhạc nền" title="Bật/Tắt nhạc nền">
+        <span id="music-icon">🎵</span>
+        <span class="music-note-float">🎶</span>
+      </button>
+    </header>
+
+    <!-- ========================================================
+         🌟 TRANG 1: ĐÊM TRĂNG KỲ DIỆU & HỘP QUÀ MỞ ĐẦU
+         ======================================================== -->
+    <section class="scene-view" id="scene-1">
+      <div class="center-stage">
+        <div class="invitation-bubble">
+          <h2 id="hero-heading">Trung Thu Ấm Áp</h2>
+          <p id="hero-subheading">Chạm vào đây để nhận điều bất ngờ từ Anh nè ✨</p>
+        </div>
+
+        <div class="gift-interactive-wrapper" id="gift-click-target">
+          <div class="gift-glow-ring"></div>
+
+          <!-- Bánh Trung Thu Hoàng Kim 3D / Hộp quà -->
+          <button class="gift-box-btn" id="gift-box-btn" aria-label="Mở điều bất ngờ">
+            <div id="gift-box-container" style="width: 100%; height: 100%;"></div>
+          </button>
+
+          <!-- Thỏ ngọc tinh nghịch bên hộp quà -->
+          <div class="interactive-rabbit" id="interactive-rabbit-box">
+            <div class="rabbit-speech-bubble" id="rabbit-speech">Chạm tớ đi! 😉</div>
+            <div class="rabbit-figure" id="rabbit-figure-emoji">🐰</div>
+          </div>
+
+          <button class="tap-action-btn" id="open-gift-btn">
+            <span>Mở món quà này</span>
+            <span>🎁</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         💌 TRANG 2: THIỆP CHÚC, KỶ NIỆM & THẢ ĐÈN TRỜI ƯỚC NGUYỆN
+         ======================================================== -->
+    <section class="scene-view" id="scene-2">
+      <div class="page-card-container">
+
+        <!-- 1. Bức thư tình Trung Thu -->
+        <article class="romantic-letter-box">
+          <div class="card-header-badge">
+            <span>✨ Lời Nhắn Từ Trái Tim ✨</span>
+          </div>
+
+          <h1 class="card-title" id="card-lover-name">Gửi Em Bé Yêu 💖</h1>
+
+          <!-- Đồng hồ đếm thời gian yêu nhau -->
+          <div class="love-timer-card" id="love-timer-card" style="display: none;">
+            <div class="love-timer-title">⏳ Thời gian hai đứa mình bên nhau</div>
+            <div class="love-timer-grid">
+              <div class="timer-unit">
+                <div class="timer-num" id="timer-days">0</div>
+                <div class="timer-lbl">Ngày</div>
+              </div>
+              <div class="timer-unit">
+                <div class="timer-num" id="timer-hours">0</div>
+                <div class="timer-lbl">Giờ</div>
+              </div>
+              <div class="timer-unit">
+                <div class="timer-num" id="timer-mins">0</div>
+                <div class="timer-lbl">Phút</div>
+              </div>
+              <div class="timer-unit">
+                <div class="timer-num" id="timer-secs">0</div>
+                <div class="timer-lbl">Giây</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-rabbit-emblem" id="card-rabbit-icon">🥰</div>
+
+          <div class="card-body-text" id="card-message-content"></div>
+
+          <div class="card-footer-signature">
+            <span class="signature-label">Thương em thật nhiều,</span>
+            <span class="signature-name" id="card-sender-name">Anh nè</span>
+          </div>
+        </article>
+
+        <!-- 2. Album ảnh kỷ niệm Polaroid -->
+        <section class="polaroid-section" id="polaroid-section">
+          <div class="section-title">
+            <span>📸</span>
+            <span>Khoảnh Khắc Yêu Thương Của Chúng Mình</span>
+            <span class="live-dot" id="polaroid-live-dot" title="Đang chạy tự động"></span>
+          </div>
+
+          <!-- Khung chạy ảnh vô tận từ PHẢI sang TRÁI mượt mà -->
+          <div class="polaroid-marquee-wrapper" id="polaroid-marquee-wrapper" title="Rê chuột hoặc chạm để tạm dừng">
+            <div class="polaroid-marquee-track" id="polaroid-carousel"></div>
+          </div>
+
+          <!-- Thanh điều khiển tốc độ & tạm dừng lãng mạn -->
+          <div class="polaroid-controls">
+            <button type="button" class="polaroid-ctrl-btn" id="polaroid-btn-toggle" aria-label="Tạm dừng/Tiếp tục" title="Tạm dừng hoặc chạy tiếp">
+              <span id="polaroid-play-icon">⏸️</span>
+              <span id="polaroid-play-text">Dừng</span>
+            </button>
+            <div class="polaroid-hint" id="polaroid-pause-indicator">
+              <span class="hint-sparkle">✨</span>
+              <span>Chạm hoặc rê chuột để dừng xem</span>
+              <span class="hint-sparkle">✨</span>
+            </div>
+            <button type="button" class="polaroid-ctrl-btn" id="polaroid-btn-speed" aria-label="Đổi tốc độ" title="Thay đổi tốc độ chạy ảnh">
+              <span id="polaroid-speed-text">⚡ Nhanh</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 3. Khu vực Thả Đèn Trời Ước Nguyện -->
+        <section class="wish-lantern-section">
+          <div class="section-title">
+            <span>🏮</span>
+            <span>Thả Đèn Trời Gửi Ước Nguyện Đêm Trăng</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 8px;">
+            Hãy chọn một tâm nguyện gửi theo ánh đèn lồng bay lên cung trăng:
+          </p>
+
+          <div class="wish-list-box" id="wish-list-container"></div>
+
+          <button class="btn-release-lantern" id="btn-release-lantern">
+            <span>Thả đèn trời mang ước nguyện bay lên</span>
+            <span>🏮✨</span>
+          </button>
+        </section>
+
+        <!-- 4. Nhóm nút hành động chân trang -->
+        <div class="page-actions-group">
+          <button class="btn-send-heart" id="btn-send-more-hearts">
+            <span>Gửi ngàn tim yêu</span>
+            <span>💖</span>
+          </button>
+
+          <button class="btn-back-scene1" id="btn-back-scene1">
+            <span>Quay lại ngắm trăng rằm</span>
+            <span>🌕✨</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lớp chớp sáng kỳ diệu khi chuyển trang -->
+    <div class="flash-portal-overlay" id="flash-portal"></div>
+
+    <!-- Thẻ Audio chuẩn bị sẵn: Bài hát Rước Đèn Trung Thu Remix -->
+    <audio id="bg-audio" preload="auto" loop>
+      <source src="ruoc_den_trung_thu_remix.mp3" type="audio/mpeg">
+      <source src="ruoc_den_trung_thu_remix.webm" type="audio/webm">
+    </audio>
+
+  </div>
+
+  <!-- ========================================================
+       🏮 MODAL BÍ MẬT TRUNG THU KHI NHẤN 3 LỒNG ĐÈN
+       ======================================================== -->
+  <div class="lantern-modal-overlay" id="lantern-modal" role="dialog" aria-modal="true">
+    <div class="lantern-story-card">
+      <button class="close-card-btn" id="close-lantern-modal" aria-label="Đóng bảng">✕</button>
+
+      <div class="card-header-badge" id="lantern-modal-badge">
+        <span>✨ BÍ MẬT ĐÊM TRĂNG ✨</span>
+      </div>
+
+      <div class="lantern-modal-icon-display" id="lantern-modal-icon"
+        style="width: 76px; height: 76px; margin: 6px 0 10px 0;"></div>
+
+      <h2 class="card-title" id="lantern-modal-title" style="font-size: 25px; margin-bottom: 8px;">Tiêu đề lồng đèn</h2>
+
+      <div class="card-body-text" id="lantern-modal-story"
+        style="font-size: 15px; line-height: 1.65; margin-bottom: 14px;"></div>
+
+      <!-- Khu vực tương tác đặc biệt của từng lồng đèn -->
+      <div id="lantern-modal-interactive" style="width: 100%; margin-bottom: 14px;"></div>
+
+      <button class="btn-send-heart" id="lantern-modal-action-btn">
+        <span>Gửi tim yêu thương</span>
+        <span>💖</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       🐉 MÀN CHIẾU ĐIỆN ẢNH: CÁ CHÉP VƯỢT VŨ MÔN HÓA RỒNG
+       ======================================================== -->
+  <div class="dragon-cinema-overlay" id="dragon-cinema-overlay" role="dialog" aria-modal="true">
+    <div class="dragon-cinema-backdrop" id="cinema-backdrop"></div>
+    <div class="dragon-cinema-content">
+      <button class="close-cinema-btn" id="close-dragon-cinema" aria-label="Đóng">✕</button>
+
+      <div class="dragon-cinema-badge" id="cinema-badge">
+        <span>🌊 CÁ CHÉP VƯỢT VŨ MÔN... ✨</span>
+      </div>
+
+      <!-- Khung biến hình trung tâm -->
+      <div class="dragon-morph-stage">
+        <div class="morph-magic-portal" id="morph-magic-portal"></div>
+        <div class="morph-glow-halo"></div>
+        <div class="morph-avatar-box" id="morph-avatar-box">
+          <img src="lantern_carp.png" id="morph-avatar-img" class="morph-avatar-img carp-mode" alt="Cá chép hóa rồng">
+        </div>
+      </div>
+
+      <!-- Tiêu đề & Thông điệp -->
+      <h2 class="dragon-cinema-title" id="cinema-title">Cá Chép Vượt Sóng Dữ</h2>
+      <p class="dragon-cinema-desc" id="cinema-desc">
+        Chú cá chép vàng đang dốc toàn lực vượt qua thác ghềnh Vũ Môn mang theo ước nguyện của hai đứa mình...
+      </p>
+
+      <!-- Nút hành động trong rạp chiếu -->
+      <div class="dragon-cinema-actions">
+        <button class="btn-send-heart" id="btn-dragon-fly-sky"
+          style="background: linear-gradient(135deg, #ffbe3d 0%, #ff5252 100%); width: 100%; box-shadow: 0 4px 20px rgba(255, 190, 61, 0.6);">
+          <span>Bay lượn trên cung trăng 🌕🐉</span>
+        </button>
+      </div>
+    </div>
+  <!-- ========================================================
+       ✨ POLAROID LIGHTBOX MODAL (XEM ẢNH FULL SẮC NÉT)
+       ======================================================== -->
+  <div class="polaroid-lightbox" id="polaroid-lightbox" aria-hidden="true">
+    <div class="polaroid-lightbox-backdrop" id="polaroid-lightbox-backdrop"></div>
+    <div class="polaroid-lightbox-card">
+      <button type="button" class="polaroid-lightbox-close" id="polaroid-lightbox-close" aria-label="Đóng">✕</button>
+      <div class="polaroid-lightbox-img-box">
+        <img src="" alt="Khoảnh khắc yêu thương" id="polaroid-lightbox-img" class="polaroid-lightbox-img">
+      </div>
+      <div class="polaroid-lightbox-caption" id="polaroid-lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       🐰 JAVASCRIPT: LOGIC & CẤU HÌNH TẬP TRUNG
+       ======================================================== -->
+  <script>
+    /* ========================================================
+       🐰 CẤU HÌNH TÙY BIẾN — CHỈ CẦN SỬA Ở ĐÂY
+       ======================================================== */
+    const CONFIG = {
+      loverName: "Em Bé Yêu",
+      senderName: "Anh nè",
+      anniversaryDate: "2025-09-14", // Bắt đầu tính từ ngày 14/09/2025 (đếm Ngày, Giờ, Phút, Giây)
+      message: `Chúc em bé của anh có một mùa Tết Trung Thu thật nhiều niềm vui, ấm áp và hạnh phúc!
+
+Dù đêm nay trăng ngoài kia có sáng và tròn đến đâu, thì trong mắt anh, em vẫn luôn là ánh trăng dịu dàng và rực rỡ nhất trần đời.
+
+Cảm ơn em đã xuất hiện và sưởi ấm thế giới của anh. Mong rằng mọi mùa trăng rằm về sau, bàn tay này vẫn luôn có em nắm chặt. Yêu em thật nhiều! 💕🌕✨`,
+
+      // Danh sách những điều ước đêm trăng để thả đèn trời (Trang 2)
+      wishes: [
+        "Mong em luôn mỉm cười rạng rỡ và an yên mỗi ngày ✨",
+        "Mong tình yêu của hai đứa mình luôn bền chặt và ngọt ngào 💖",
+        "Cùng em nắm tay đi qua thật nhiều mùa trăng rằm nữa 🌕",
+        "Mỗi ngày trôi qua đều có em ở bên cạnh 🐰"
+      ],
+
+      // Thư viện ảnh: thay 3 ảnh thỏ, lân, cá chép thật xinh xắn
+      images: {
+        moon: "",           // Link ảnh mặt trăng rằm
+        background: "",     // Link ảnh nền bầu trời
+        lanternRabbit: "lantern_rabbit.png",  // Ảnh lồng đèn thỏ cute
+        lanternLion: "lantern_lion.png",      // Ảnh lồng đèn lân sư rồng
+        lanternCarp: "lantern_carp.png",      // Ảnh lồng đèn cá chép dễ thương
+        rabbit: "",         // Link ảnh thỏ ngọc
+        giftBox: "",        // Link ảnh hộp quà / bánh trung thu
+
+        // Album 3 ảnh kỷ niệm ở Trang 2 (tùy chọn, để trống sẽ dùng minh họa tình yêu cực cute)
+        photos: [
+          { url: "anh1.jpg", caption: "Sự Dễ Thương ✨" },
+          { url: "anh2.jpg", caption: "Nụ cười của em 💖" },
+          { url: "anh3.jpg", caption: "Sự Đáng Yêuuu 🌙" }
+        ]
+      },
+
+      audio: {
+        src: "ruoc_den_trung_thu_remix.mp3", // Bài hát Rước Đèn Trung Thu Remix sôi động
+        fallbackSrc: "ruoc_den_trung_thu_remix.webm",
+        autoLoop: true,
+      },
+
+      theme: {
+        skyGradientStart: "#0b0033",
+        skyGradientEnd: "#03000f",
+        moonGlowColor: "#ffe9a8",
+        accentColor: "#ff758c",
+      },
+    };
+
+    /* ========================================================
+       🎨 THƯ VIỆN SVG DỰ PHÒNG XUẤT SẮC
+       ======================================================== */
+    const SVG_FALLBACKS = {
+      moon: `
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <radialGradient id="moonGrad" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="40%" stop-color="#fff6d1"/>
+              <stop offset="75%" stop-color="#ffd56b"/>
+              <stop offset="100%" stop-color="#f3a935"/>
+            </radialGradient>
+            <filter id="moonSoftBlur"><feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/></filter>
+          </defs>
+          <circle cx="50" cy="50" r="48" fill="url(#moonGrad)"/>
+          <g fill="#d89624" opacity="0.25" filter="url(#moonSoftBlur)">
+            <ellipse cx="62" cy="40" rx="14" ry="11"/>
+            <ellipse cx="40" cy="65" rx="11" ry="8"/>
+            <ellipse cx="32" cy="38" rx="8" ry="6"/>
+            <ellipse cx="68" cy="66" rx="9" ry="7"/>
+          </g>
+        </svg>
+      `,
+
+      // 1. Lồng đèn Thỏ Cute
+      lanternRabbit: `
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <radialGradient id="rabbitLanternGlow" cx="45%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="60%" stop-color="#ffd1dc"/>
+              <stop offset="100%" stop-color="#ff758c"/>
+            </radialGradient>
+            <radialGradient id="earPink" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff9eb5"/>
+              <stop offset="100%" stop-color="#ff5277"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="36" cy="20" rx="8" ry="18" fill="#fff5f7" stroke="#ff758c" stroke-width="2" transform="rotate(-10 36 20)"/>
+          <ellipse cx="36" cy="20" rx="4.5" ry="12" fill="url(#earPink)" transform="rotate(-10 36 20)"/>
+          <ellipse cx="64" cy="20" rx="8" ry="18" fill="#fff5f7" stroke="#ff758c" stroke-width="2" transform="rotate(10 64 20)"/>
+          <ellipse cx="64" cy="20" rx="4.5" ry="12" fill="url(#earPink)" transform="rotate(10 64 20)"/>
+          <polygon points="50,28 42,23 42,33" fill="#ffbe3d"/>
+          <polygon points="50,28 58,23 58,33" fill="#ffbe3d"/>
+          <circle cx="50" cy="28" r="3.5" fill="#ff3366"/>
+          <circle cx="50" cy="62" r="33" fill="url(#rabbitLanternGlow)" stroke="#ffe9a8" stroke-width="2.2"/>
+          <path d="M 38 56 Q 43 51 48 56" fill="none" stroke="#4a154b" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M 52 56 Q 57 51 62 56" fill="none" stroke="#4a154b" stroke-width="2.6" stroke-linecap="round"/>
+          <ellipse cx="35" cy="63" rx="5.5" ry="3.5" fill="#ff5277" opacity="0.6"/>
+          <ellipse cx="65" cy="63" rx="5.5" ry="3.5" fill="#ff5277" opacity="0.6"/>
+          <polygon points="50,61 48,64 52,64" fill="#ff5277"/>
+          <path d="M 50 64 Q 47 69 43 67 M 50 64 Q 53 69 57 67" fill="none" stroke="#4a154b" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 50 72 L 56 83 L 51 85 Z" fill="#ff793f"/>
+          <ellipse cx="50" cy="72" rx="3" ry="1.5" fill="#2ed573"/>
+        </svg>
+      `,
+
+      // 2. Lồng đèn Lân Sư Rồng
+      lanternLion: `
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <radialGradient id="lionHeadGrad" cx="50%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="#fff07c"/>
+              <stop offset="45%" stop-color="#ff4757"/>
+              <stop offset="100%" stop-color="#b30021"/>
+            </radialGradient>
+            <linearGradient id="maneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffbe3d"/>
+              <stop offset="100%" stop-color="#ff3838"/>
+            </linearGradient>
+          </defs>
+          <circle cx="21" cy="40" r="10" fill="url(#maneGrad)"/>
+          <circle cx="79" cy="40" r="10" fill="url(#maneGrad)"/>
+          <circle cx="17" cy="58" r="10" fill="url(#maneGrad)"/>
+          <circle cx="83" cy="58" r="10" fill="url(#maneGrad)"/>
+          <circle cx="29" cy="76" r="9" fill="url(#maneGrad)"/>
+          <circle cx="71" cy="76" r="9" fill="url(#maneGrad)"/>
+          <circle cx="50" cy="54" r="32" fill="url(#lionHeadGrad)" stroke="#ffe9a8" stroke-width="2.2"/>
+          <path d="M 50 14 L 44 28 L 56 28 Z" fill="#ffbe3d" stroke="#ffffff" stroke-width="1.5"/>
+          <circle cx="50" cy="33" r="7.5" fill="#ff1744" stroke="#ffe9a8" stroke-width="1.8"/>
+          <circle cx="48" cy="31" r="2" fill="#ffffff" opacity="0.8"/>
+          <path d="M 28 42 Q 38 34 46 43" fill="none" stroke="#ffbe3d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 72 42 Q 62 34 54 43" fill="none" stroke="#ffbe3d" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="37" cy="50" r="8.5" fill="#ffffff"/>
+          <circle cx="63" cy="50" r="8.5" fill="#ffffff"/>
+          <circle cx="37" cy="50" r="4.8" fill="#1e152a"/>
+          <circle cx="63" cy="50" r="4.8" fill="#1e152a"/>
+          <circle cx="39" cy="48" r="1.8" fill="#ffffff"/>
+          <circle cx="65" cy="48" r="1.8" fill="#ffffff"/>
+          <ellipse cx="50" cy="60" rx="6.5" ry="4.5" fill="#ffbe3d" stroke="#d63031" stroke-width="1.5"/>
+          <path d="M 37 68 Q 50 81 63 68 Z" fill="#ffffff" stroke="#ff3838" stroke-width="2"/>
+          <path d="M 41 68 Q 50 78 59 68 Z" fill="#ff4757"/>
+        </svg>
+      `,
+
+      // 3. Lồng đèn Cá Chép Dễ Thương
+      lanternCarp: `
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <radialGradient id="carpGrad" cx="60%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#fff2a3"/>
+              <stop offset="40%" stop-color="#ff793f"/>
+              <stop offset="85%" stop-color="#e84118"/>
+              <stop offset="100%" stop-color="#9c1503"/>
+            </radialGradient>
+          </defs>
+          <path d="M 28 52 C 10 32, 4 48, 14 64 C 18 54, 22 56, 28 52 Z" fill="#ffbe3d" opacity="0.9"/>
+          <path d="M 28 52 C 12 60, 8 76, 20 80 C 22 68, 25 64, 28 52 Z" fill="#ff7675" opacity="0.85"/>
+          <path d="M 46 26 Q 60 12 72 26 Z" fill="#ffbe3d"/>
+          <path d="M 52 74 Q 64 86 74 74 Z" fill="#ffbe3d"/>
+          <path d="M 24 52 C 24 28, 68 22, 86 50 C 70 78, 24 74, 24 52 Z" fill="url(#carpGrad)" stroke="#ffe9a8" stroke-width="2"/>
+          <path d="M 46 42 Q 54 50 46 58" fill="none" stroke="#fff176" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M 56 38 Q 65 48 56 60" fill="none" stroke="#fff176" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M 67 44 Q 74 50 67 56" fill="none" stroke="#fff176" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="77" cy="45" r="5.5" fill="#ffffff"/>
+          <circle cx="78" cy="45" r="3.2" fill="#22123b"/>
+          <circle cx="79" cy="44" r="1.4" fill="#ffffff"/>
+          <circle cx="89" cy="53" r="3.5" fill="#ff758c"/>
+          <circle cx="89" cy="53" r="1.5" fill="#ffe9a8"/>
+        </svg>
+      `,
+
+      giftBox: `
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <defs>
+            <radialGradient id="cakeGrad" cx="45%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ffe699"/>
+              <stop offset="35%" stop-color="#f3a935"/>
+              <stop offset="75%" stop-color="#c67605"/>
+              <stop offset="100%" stop-color="#7a3e02"/>
+            </radialGradient>
+            <filter id="cakeGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#ffaa00" flood-opacity="0.55"/>
+            </filter>
+          </defs>
+          <g filter="url(#cakeGlow)">
+            <rect x="18" y="18" width="84" height="84" rx="28" fill="url(#cakeGrad)" stroke="#ffe9a8" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="28" fill="none" stroke="#fff4cc" stroke-width="2" stroke-dasharray="6,3"/>
+            <path d="M 60 40 L 60 80 M 40 60 L 80 60 M 46 46 L 74 74 M 46 74 L 74 46" stroke="#ffe082" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="9" fill="#ffbe3d" stroke="#ffffff" stroke-width="1.5"/>
+            <circle cx="34" cy="34" r="3.5" fill="#ffffff" opacity="0.9"/>
+            <circle cx="86" cy="34" r="3.5" fill="#ffffff" opacity="0.9"/>
+            <circle cx="34" cy="86" r="3.5" fill="#ffffff" opacity="0.9"/>
+            <circle cx="86" cy="86" r="3.5" fill="#ffffff" opacity="0.9"/>
+          </g>
+        </svg>
+      `,
+
+      // Minh họa polaroid fallback nếu chưa có ảnh
+      polaroidArt: [
+        `<div style="font-size: 58px; display: flex; align-items: center; justify-content: center; height: 100%;">🐰🌕💖</div>`,
+        `<div style="font-size: 58px; display: flex; align-items: center; justify-content: center; height: 100%;">🥰✨🌸</div>`,
+        `<div style="font-size: 58px; display: flex; align-items: center; justify-content: center; height: 100%;">🏮💑⭐</div>`
+      ]
+    };
+
+    /* ========================================================
+       ⚙️ KHỞI TẠO NỘI DUNG & THEME TỪ CONFIG
+       ======================================================== */
+    let currentScene = 1;
+    let selectedWishText = "";
+    let isMusicPlaying = false;
+    const bgAudio = document.getElementById('bg-audio');
+
+    function applyConfig() {
+      // 1. Áp dụng biến màu chủ đề
+      const rootStyle = document.documentElement.style;
+      if (CONFIG.theme) {
+        if (CONFIG.theme.skyGradientStart) rootStyle.setProperty('--sky-start', CONFIG.theme.skyGradientStart);
+        if (CONFIG.theme.skyGradientEnd) rootStyle.setProperty('--sky-end', CONFIG.theme.skyGradientEnd);
+        if (CONFIG.theme.moonGlowColor) rootStyle.setProperty('--moon-glow', CONFIG.theme.moonGlowColor);
+        if (CONFIG.theme.accentColor) rootStyle.setProperty('--accent-pink', CONFIG.theme.accentColor);
+      }
+
+      // 2. Ảnh nền nếu có
+      if (CONFIG.images.background && CONFIG.images.background.trim() !== "") {
+        document.getElementById('app-container').style.backgroundImage = `linear-gradient(rgba(11, 0, 51, 0.75), rgba(3, 0, 15, 0.88)), url('${CONFIG.images.background}')`;
+      }
+
+      // 3. Render Mặt Trăng & Đèn lồng
+      const moonContainer = document.getElementById('moon-container');
+      moonContainer.innerHTML = (CONFIG.images.moon && CONFIG.images.moon.trim() !== "")
+        ? `<div class="moon-element"><img src="${CONFIG.images.moon}" alt="Mặt Trăng Rằm" class="moon-img" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.moon"></div>`
+        : `<div class="moon-element">${SVG_FALLBACKS.moon}</div>`;
+
+      const rabbitBox = document.getElementById('lantern-rabbit-container');
+      if (rabbitBox) {
+        rabbitBox.innerHTML = (CONFIG.images.lanternRabbit && CONFIG.images.lanternRabbit.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternRabbit}" alt="Đèn Thỏ Cute" class="lantern-img" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.lanternRabbit">`
+          : SVG_FALLBACKS.lanternRabbit;
+      }
+
+      const lionBox = document.getElementById('lantern-lion-container');
+      if (lionBox) {
+        lionBox.innerHTML = (CONFIG.images.lanternLion && CONFIG.images.lanternLion.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternLion}" alt="Đèn Lân Sư Rồng" class="lantern-img" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.lanternLion">`
+          : SVG_FALLBACKS.lanternLion;
+      }
+
+      const carpBox = document.getElementById('lantern-carp-container');
+      if (carpBox) {
+        carpBox.innerHTML = (CONFIG.images.lanternCarp && CONFIG.images.lanternCarp.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternCarp}" alt="Đèn Cá Chép" class="lantern-img" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.lanternCarp">`
+          : SVG_FALLBACKS.lanternCarp;
+      }
+
+      // 4. Render Bánh Trung Thu / Hộp quà trung tâm
+      const giftBoxContainer = document.getElementById('gift-box-container');
+      giftBoxContainer.innerHTML = (CONFIG.images.giftBox && CONFIG.images.giftBox.trim() !== "")
+        ? `<img src="${CONFIG.images.giftBox}" alt="Bánh Trung Thu" class="gift-img-asset" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.giftBox">`
+        : SVG_FALLBACKS.giftBox;
+
+      // 5. Cập nhật Text Trang 1 & Trang 2
+      document.getElementById('hero-subheading').textContent = `Chạm vào đây để nhận điều bất ngờ từ ${CONFIG.senderName} ✨`;
+      document.getElementById('card-lover-name').textContent = `Gửi ${CONFIG.loverName} 💖`;
+      document.getElementById('card-message-content').textContent = CONFIG.message;
+      document.getElementById('card-sender-name').textContent = CONFIG.senderName;
+
+      // 6. Khởi động bộ đếm thời gian yêu nhau
+      initLoveTimer();
+
+      // 7. Render Album Polaroid (Trang 2)
+      renderPolaroidAlbum();
+
+      // 8. Render danh sách điều ước thả đèn trời (Trang 2)
+      renderWishList();
+
+      // 9. Cấu hình Audio
+      if (CONFIG.audio && CONFIG.audio.src) {
+        bgAudio.src = CONFIG.audio.src;
+        bgAudio.loop = CONFIG.audio.autoLoop !== false;
+        bgAudio.onerror = () => {
+          if (CONFIG.audio.fallbackSrc && !bgAudio.src.endsWith(CONFIG.audio.fallbackSrc)) {
+            bgAudio.src = CONFIG.audio.fallbackSrc;
+            if (isMusicPlaying) bgAudio.play().catch(e => console.log(e));
+          }
+        };
+      }
+    }
+
+    /* ========================================================
+       ⏳ BỘ ĐẾM THỜI GIAN YÊU NHAU (REAL-TIME LOVE TIMER)
+       ======================================================== */
+    function initLoveTimer() {
+      if (!CONFIG.anniversaryDate || CONFIG.anniversaryDate.trim() === "") return;
+
+      const timerBox = document.getElementById('love-timer-card');
+      timerBox.style.display = 'flex';
+
+      function updateClock() {
+        const dateStr = CONFIG.anniversaryDate.includes('T') ? CONFIG.anniversaryDate : `${CONFIG.anniversaryDate}T00:00:00`;
+        const startDate = new Date(dateStr);
+        const now = new Date();
+        const diffMs = now - startDate;
+
+        if (diffMs >= 0) {
+          const totalSecs = Math.floor(diffMs / 1000);
+          const days = Math.floor(totalSecs / (3600 * 24));
+          const hours = Math.floor((totalSecs % (3600 * 24)) / 3600);
+          const mins = Math.floor((totalSecs % 3600) / 60);
+          const secs = totalSecs % 60;
+
+          document.getElementById('timer-days').textContent = days;
+          document.getElementById('timer-hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('timer-mins').textContent = mins.toString().padStart(2, '0');
+          document.getElementById('timer-secs').textContent = secs.toString().padStart(2, '0');
+        }
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    /* ========================================================
+       📸 RENDER ALBUM POLAROID VỚI HIỆU ỨNG CHẠY TỪ PHẢI SANG TRÁI
+       ======================================================== */
+    let marqueeSpeedIdx = 0;
+    const MARQUEE_SPEEDS = [
+      { text: "⚡ Nhanh", duration: "16s" },
+      { text: "⚡ Rất nhanh", duration: "10s" },
+      { text: "🍃 Chậm rãi", duration: "32s" },
+      { text: "✨ Vừa phải", duration: "22s" }
+    ];
+    let isMarqueePaused = false;
+
+    function renderPolaroidAlbum() {
+      const carousel = document.getElementById('polaroid-carousel');
+      if (!carousel) return;
+      carousel.innerHTML = "";
+
+      const rawPhotos = CONFIG.images.photos || [];
+      if (rawPhotos.length === 0) return;
+
+      // Nhân bản bộ ảnh để đảm bảo luôn có ít nhất 4 ảnh trong 1 cụm
+      let baseSet = [...rawPhotos];
+      while (baseSet.length < 4) {
+        baseSet = baseSet.concat(rawPhotos);
+      }
+
+      // Tạo 2 cụm liên tiếp (Set A & Set B) hoàn toàn giống hệt nhau
+      // Khi translate từ 0% sang -50%, Set B sẽ tiếp nối chuẩn từng pixel vào vị trí Set A
+      const totalPhotos = [...baseSet, ...baseSet];
+
+      totalPhotos.forEach((item, index) => {
+        const polaroid = document.createElement('div');
+        polaroid.className = 'polaroid-item';
+        polaroid.title = `${item.caption || "Khoảnh khắc ngọt ngào"} (Chạm để xem to)`;
+
+        const contentHtml = (item.url && item.url.trim() !== "")
+          ? `<img src="${item.url}" alt="${item.caption || 'Ảnh kỷ niệm'}" class="polaroid-img" loading="lazy" onerror="this.parentElement.innerHTML=SVG_FALLBACKS.polaroidArt[${index % 3}]">`
+          : (SVG_FALLBACKS.polaroidArt[index % 3] || SVG_FALLBACKS.polaroidArt[0]);
+
+        polaroid.innerHTML = `
+          <div class="polaroid-img-box">${contentHtml}</div>
+          <div class="polaroid-caption">${item.caption || "Hạnh phúc bên em"}</div>
+        `;
+
+        // Bấm vào ảnh để mở popup xem to sắc nét
+        polaroid.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openPhotoLightbox(item.url, item.caption || "Hạnh phúc bên em", index % 3);
+        });
+
+        carousel.appendChild(polaroid);
+      });
+
+      setupMarqueeControls();
+    }
+
+    function setupMarqueeControls() {
+      const wrapper = document.getElementById('polaroid-marquee-wrapper');
+      const track = document.getElementById('polaroid-carousel');
+      const btnToggle = document.getElementById('polaroid-btn-toggle');
+      const playIcon = document.getElementById('polaroid-play-icon');
+      const playText = document.getElementById('polaroid-play-text');
+      const btnSpeed = document.getElementById('polaroid-btn-speed');
+      const speedText = document.getElementById('polaroid-speed-text');
+      const liveDot = document.getElementById('polaroid-live-dot');
+
+      if (!wrapper || !track) return;
+
+      // Cảm ứng chạm trên điện thoại: chạm giữ để dừng ngắm ảnh, nhả ra để chạy tiếp
+      wrapper.addEventListener('touchstart', () => {
+        if (!isMarqueePaused) {
+          track.style.animationPlayState = 'paused';
+          if (liveDot) liveDot.classList.add('paused');
+        }
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', () => {
+        if (!isMarqueePaused) {
+          track.style.animationPlayState = 'running';
+          if (liveDot) liveDot.classList.remove('paused');
+        }
+      }, { passive: true });
+
+      // Nút Bật / Tạm Dừng chạy ảnh
+      if (btnToggle) {
+        btnToggle.onclick = (e) => {
+          e.stopPropagation();
+          isMarqueePaused = !isMarqueePaused;
+          if (isMarqueePaused) {
+            track.style.animationPlayState = 'paused';
+            wrapper.classList.add('is-paused');
+            if (playIcon) playIcon.textContent = "▶️";
+            if (playText) playText.textContent = "Chạy";
+            if (liveDot) liveDot.classList.add('paused');
+          } else {
+            track.style.animationPlayState = 'running';
+            wrapper.classList.remove('is-paused');
+            if (playIcon) playIcon.textContent = "⏸️";
+            if (playText) playText.textContent = "Dừng";
+            if (liveDot) liveDot.classList.remove('paused');
+          }
+          playMagicalChime();
+        };
+      }
+
+      // Nút Đổi tốc độ chạy ảnh (Nhanh -> Rất nhanh -> Chậm rãi -> Vừa phải)
+      if (btnSpeed) {
+        btnSpeed.onclick = (e) => {
+          e.stopPropagation();
+          marqueeSpeedIdx = (marqueeSpeedIdx + 1) % MARQUEE_SPEEDS.length;
+          const conf = MARQUEE_SPEEDS[marqueeSpeedIdx];
+          track.style.animationDuration = conf.duration;
+          if (speedText) speedText.textContent = conf.text;
+          playMagicalChime();
+          const rect = btnSpeed.getBoundingClientRect();
+          triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        };
+      }
+    }
+
+    function openPhotoLightbox(url, caption, fallbackIndex) {
+      const lightbox = document.getElementById('polaroid-lightbox');
+      const img = document.getElementById('polaroid-lightbox-img');
+      const captionEl = document.getElementById('polaroid-lightbox-caption');
+      const imgBox = document.querySelector('.polaroid-lightbox-img-box');
+      if (!lightbox || !img || !captionEl) return;
+
+      captionEl.textContent = caption;
+      if (url && url.trim() !== "") {
+        img.style.display = 'block';
+        img.src = url;
+        img.alt = caption;
+        img.onerror = () => {
+          img.style.display = 'none';
+          if (imgBox) imgBox.innerHTML = SVG_FALLBACKS.polaroidArt[fallbackIndex] || SVG_FALLBACKS.polaroidArt[0];
+        };
+      } else {
+        img.style.display = 'none';
+        if (imgBox) imgBox.innerHTML = SVG_FALLBACKS.polaroidArt[fallbackIndex] || SVG_FALLBACKS.polaroidArt[0];
+      }
+
+      lightbox.classList.add('active');
+      playMagicalChime();
+    }
+
+    function closePhotoLightbox() {
+      const lightbox = document.getElementById('polaroid-lightbox');
+      if (lightbox) lightbox.classList.remove('active');
+    }
+
+    // Đăng ký sự kiện đóng Lightbox
+    const lbCloseBtn = document.getElementById('polaroid-lightbox-close');
+    const lbBackdrop = document.getElementById('polaroid-lightbox-backdrop');
+    if (lbCloseBtn) lbCloseBtn.addEventListener('click', closePhotoLightbox);
+    if (lbBackdrop) lbBackdrop.addEventListener('click', closePhotoLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePhotoLightbox();
+    });
+
+    /* ========================================================
+       🏮 RENDER DANH SÁCH ĐIỀU ƯỚC THẢ ĐÈN TRỜI
+       ======================================================== */
+    function renderWishList() {
+      const container = document.getElementById('wish-list-container');
+      container.innerHTML = "";
+      const wishes = CONFIG.wishes || [];
+
+      wishes.forEach((wish, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `wish-item-btn ${idx === 0 ? 'selected' : ''}`;
+        btn.innerHTML = `<span>🏮</span> <span>${wish}</span>`;
+        if (idx === 0) selectedWishText = wish;
+
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.wish-item-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedWishText = wish;
+          playMagicalChime();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    /* ========================================================
+       ✨ CANVAS: SAO TRỜI, ĐOM ĐÓM & SAO BĂNG (SHOOTING STARS)
+       ======================================================== */
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let fireflies = [];
+    let meteors = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
+
+    function initParticles() {
+      stars = [];
+      fireflies = [];
+      const isMobile = window.innerWidth < 768;
+      const starCount = isMobile ? 65 : 130;
+      const fireflyCount = isMobile ? 18 : 35;
+
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height * 0.75,
+          radius: Math.random() * 1.5 + 0.5,
+          alpha: Math.random(),
+          speed: Math.random() * 0.02 + 0.008,
+          increasing: Math.random() > 0.5
+        });
+      }
+
+      for (let j = 0; j < fireflyCount; j++) {
+        fireflies.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: -Math.random() * 0.5 - 0.15,
+          alpha: Math.random() * 0.7 + 0.3
+        });
+      }
+    }
+
+    // Tạo sao băng xẹt qua bầu trời
+    function spawnMeteor() {
+      meteors.push({
+        x: Math.random() * canvas.width * 0.8 + canvas.width * 0.1,
+        y: Math.random() * canvas.height * 0.3,
+        length: Math.random() * 80 + 60,
+        speed: Math.random() * 8 + 12,
+        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2, // Bay chéo 45 độ
+        alpha: 1,
+        decay: Math.random() * 0.03 + 0.02
+      });
+
+      // Lên lịch sao băng tiếp theo (mỗi 4 - 8 giây)
+      setTimeout(spawnMeteor, Math.random() * 4000 + 4000);
+    }
+    setTimeout(spawnMeteor, 2500);
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 1. Vẽ vì sao
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        if (s.increasing) {
+          s.alpha += s.speed;
+          if (s.alpha >= 1) { s.alpha = 1; s.increasing = false; }
+        } else {
+          s.alpha -= s.speed;
+          if (s.alpha <= 0.15) { s.alpha = 0.15; s.increasing = true; }
+        }
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+        ctx.shadowBlur = s.radius > 1 ? 5 : 0;
+        ctx.shadowColor = '#ffffff';
+        ctx.fill();
+      }
+
+      // 2. Vẽ đom đóm
+      for (let j = 0; j < fireflies.length; j++) {
+        const f = fireflies[j];
+        f.x += f.vx;
+        f.y += f.vy;
+        if (f.y < -10) f.y = canvas.height + 10;
+        if (f.x < -10) f.x = canvas.width + 10;
+        if (f.x > canvas.width + 10) f.x = -10;
+
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 233, 168, ${f.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(255, 190, 61, 0.8)';
+        ctx.fill();
+      }
+
+      // 3. Vẽ sao băng (Meteors)
+      for (let m = meteors.length - 1; m >= 0; m--) {
+        const meteor = meteors[m];
+        meteor.x += Math.cos(meteor.angle) * meteor.speed;
+        meteor.y += Math.sin(meteor.angle) * meteor.speed;
+        meteor.alpha -= meteor.decay;
+
+        if (meteor.alpha <= 0 || meteor.x > canvas.width || meteor.y > canvas.height) {
+          meteors.splice(m, 1);
+          continue;
+        }
+
+        const tailX = meteor.x - Math.cos(meteor.angle) * meteor.length;
+        const tailY = meteor.y - Math.sin(meteor.angle) * meteor.length;
+
+        const grad = ctx.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${meteor.alpha})`);
+        grad.addColorStop(0.3, `rgba(255, 233, 168, ${meteor.alpha * 0.8})`);
+        grad.addColorStop(1, 'rgba(255, 117, 140, 0)');
+
+        ctx.beginPath();
+        ctx.moveTo(meteor.x, meteor.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(renderCanvas);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+
+    /* ========================================================
+       🎵 ÂM THANH CHUÔNG KỲ ẢO & ĐIỀU KHIỂN NHẠC NỀN
+       ======================================================== */
+    let audioCtx = null;
+    function playMagicalChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+
+          gain.gain.setValueAtTime(0, audioCtx.currentTime + idx * 0.08);
+          gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.08 + 0.8);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(audioCtx.currentTime + idx * 0.08);
+          osc.stop(audioCtx.currentTime + idx * 0.08 + 0.85);
+        });
+      } catch (e) {
+        console.log("Audio chime error:", e);
+      }
+    }
+
+    const musicBtn = document.getElementById('music-toggle-btn');
+    const musicIcon = document.getElementById('music-icon');
+
+    function toggleMusic(forceState) {
+      const target = typeof forceState === 'boolean' ? forceState : !isMusicPlaying;
+      if (target) {
+        bgAudio.play().then(() => {
+          isMusicPlaying = true;
+          musicBtn.classList.add('playing');
+          musicIcon.textContent = '🎵';
+        }).catch(err => {
+          console.log("Autoplay policy:", err);
+          isMusicPlaying = true;
+          musicBtn.classList.add('playing');
+        });
+      } else {
+        bgAudio.pause();
+        isMusicPlaying = false;
+        musicBtn.classList.remove('playing');
+        musicIcon.textContent = '🔇';
+      }
+    }
+
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMusic();
+    });
+
+    /* ========================================================
+       🎉 PHÁO HOA GIẤY & TIM BAY TUNG TÓE
+       ======================================================== */
+    function triggerCelebration(originX, originY) {
+      const colors = ['#ff758c', '#ffbe3d', '#ffe9a8', '#ff3366', '#a29bfe', '#ffffff'];
+      const emojis = ['💖', '✨', '🌕', '🐰', '💕', '⭐'];
+      const count = window.innerWidth < 768 ? 36 : 60;
+
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        const isEmoji = Math.random() > 0.65;
+
+        if (isEmoji) {
+          el.className = 'confetti-piece';
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          el.style.fontSize = `${Math.random() * 14 + 14}px`;
+          el.style.background = 'transparent';
+        } else {
+          el.className = 'confetti-piece';
+          el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          el.style.width = `${Math.random() * 8 + 6}px`;
+          el.style.height = `${Math.random() * 8 + 6}px`;
+        }
+
+        el.style.left = `${originX}px`;
+        el.style.top = `${originY}px`;
+        document.body.appendChild(el);
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 160 + 90;
+        const destX = Math.cos(angle) * velocity;
+        const destY = Math.sin(angle) * velocity + 100;
+        const rotation = Math.random() * 720 - 360;
+
+        el.animate([
+          { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${destX}px), calc(-50% + ${destY}px)) scale(0.6) rotate(${rotation}deg)`, opacity: 0 }
+        ], {
+          duration: Math.random() * 800 + 1000,
+          easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+          fill: 'forwards'
+        }).onfinish = () => el.remove();
+      }
+    }
+
+    /* ========================================================
+       🌊 ÂM THANH NƯỚC & ĐÀN HẠC HUYỀN ẢO KHI THẢ CÁ CHÉP
+       ======================================================== */
+    function playWaterCarpChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        // 1. Giọt nước tí tách sủi bọt (Water bubble drops)
+        const dropTimes = [0, 0.09, 0.18, 0.28];
+        const dropFreqs = [520, 720, 940, 1200];
+        dropTimes.forEach((t, i) => {
+          const now = audioCtx.currentTime + t;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(dropFreqs[i], now);
+          osc.frequency.exponentialRampToValueAtTime(dropFreqs[i] * 1.8, now + 0.12);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        });
+
+        // 2. Chuỗi đàn hạc ngân vang lấp lánh (Celestial harp chords)
+        const harpNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+        harpNotes.forEach((freq, idx) => {
+          const startTime = audioCtx.currentTime + 0.22 + (idx * 0.07);
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.2, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.95);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.98);
+        });
+      } catch (e) {
+        console.log("Water carp sound error:", e);
+      }
+    }
+
+    /* ========================================================
+       ✨ ĐÀN CÁ CHÉP VÀNG & BỌT KHÍ LUNG LINH BƠI LƯỢN
+       ======================================================== */
+    function triggerCarpReleaseMagic(originX, originY) {
+      // 1. Gợn sóng nước lan tỏa (Water Ripples)
+      for (let r = 0; r < 3; r++) {
+        setTimeout(() => {
+          const ripple = document.createElement('div');
+          ripple.className = 'carp-water-ripple';
+          ripple.style.left = `${originX}px`;
+          ripple.style.top = `${originY}px`;
+          ripple.style.width = '60px';
+          ripple.style.height = '60px';
+          document.body.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 1500);
+        }, r * 220);
+      }
+
+      // 2. Đàn cá chép vàng, hoa sen và bọt biển lung linh bơi vút lên
+      const carpItems = ['🐟', '🐠', '✨', '🌸', '🌊', '🫧', '💖', '⭐', '🌟', '🪷', '🎏'];
+      const count = 30;
+
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'swimming-carp-particle';
+        particle.textContent = carpItems[Math.floor(Math.random() * carpItems.length)];
+
+        // Quỹ đạo bơi uốn lượn hình sin tự nhiên
+        const dx1 = (Math.random() - 0.5) * 160;
+        const dy1 = -(Math.random() * 80 + 50);
+        const dx2 = dx1 + (Math.random() - 0.5) * 200;
+        const dy2 = dy1 - (Math.random() * 120 + 90);
+        const dx3 = dx2 + (Math.random() - 0.5) * 140;
+        const dy3 = dy2 - (Math.random() * 160 + 110);
+        const rot = (Math.random() - 0.5) * 60;
+
+        particle.style.left = `${originX}px`;
+        particle.style.top = `${originY}px`;
+        particle.style.setProperty('--dx1', `${dx1}px`);
+        particle.style.setProperty('--dy1', `${dy1}px`);
+        particle.style.setProperty('--dx2', `${dx2}px`);
+        particle.style.setProperty('--dy2', `${dy2}px`);
+        particle.style.setProperty('--dx3', `${dx3}px`);
+        particle.style.setProperty('--dy3', `${dy3}px`);
+        particle.style.setProperty('--swim-rot', `${rot}deg`);
+        particle.style.fontSize = `${Math.random() * 16 + 20}px`;
+
+        const delay = Math.random() * 600;
+        setTimeout(() => {
+          document.body.appendChild(particle);
+          setTimeout(() => particle.remove(), 2600);
+        }, delay);
+      }
+
+      // 3. Pháo hoa confetti lung linh xung quanh
+      triggerCelebration(originX, originY);
+    }
+
+    /* ========================================================
+       🐉 ÂM THANH GÔNG & KHẢI HOÀN KHI RỒNG VÀNG THĂNG THIÊN
+       ======================================================== */
+    function playDragonRoarChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        // 1. Tiếng cồng / gông trầm hùng ngân vang
+        const bassOsc = audioCtx.createOscillator();
+        const bassGain = audioCtx.createGain();
+        bassOsc.type = 'sine';
+        bassOsc.frequency.setValueAtTime(146.83, now);
+        bassOsc.frequency.exponentialRampToValueAtTime(73.42, now + 1.2);
+        bassGain.gain.setValueAtTime(0.35, now);
+        bassGain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+        bassOsc.connect(bassGain);
+        bassGain.connect(audioCtx.destination);
+        bassOsc.start(now);
+        bassOsc.stop(now + 1.6);
+
+        // 2. Chuỗi trumpet & đàn hạc khải hoàn bay vút
+        const fanfareNotes = [293.66, 369.99, 440.00, 587.33, 739.99, 880.00, 1174.66];
+        fanfareNotes.forEach((freq, idx) => {
+          const startTime = now + 0.15 + (idx * 0.09);
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.22, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 1.1);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 1.15);
+        });
+      } catch (e) {
+        console.log("Dragon chime sound error:", e);
+      }
+    }
+
+    /* ========================================================
+       🐉 KÍCH HOẠT RỒNG VÀNG BAY LƯỢN TOÀN MÀN HÌNH
+       ======================================================== */
+    function spawnFullFlyingDragon() {
+      const dragonEl = document.createElement('div');
+      dragonEl.style.position = 'fixed';
+      dragonEl.style.top = '0';
+      dragonEl.style.left = '0';
+      dragonEl.style.width = 'clamp(200px, 48vw, 320px)';
+      dragonEl.style.height = 'clamp(200px, 48vw, 320px)';
+      dragonEl.style.pointerEvents = 'none';
+      dragonEl.style.zIndex = '3000';
+      dragonEl.style.filter = 'drop-shadow(0 0 35px #ffd700) drop-shadow(0 0 70px rgba(255, 100, 120, 0.9))';
+      dragonEl.innerHTML = `<img src="golden_dragon.png" style="width:100%;height:100%;object-fit:contain;" alt="Rồng Vàng Hoàng Kim">`;
+      document.body.appendChild(dragonEl);
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      // Quỹ đạo rồng bay uyển chuyển hình chữ S qua toàn màn hình và mặt trăng
+      dragonEl.animate([
+        {
+          transform: `translate(-180px, ${h * 0.75}px) scale(0.4) rotate(-30deg)`,
+          opacity: 0
+        },
+        {
+          transform: `translate(${w * 0.12}px, ${h * 0.45}px) scale(1) rotate(5deg)`,
+          opacity: 1,
+          offset: 0.2
+        },
+        {
+          transform: `translate(${w * 0.42}px, ${h * 0.28}px) scale(1.3) rotate(-10deg)`,
+          opacity: 1,
+          offset: 0.5
+        },
+        {
+          transform: `translate(${w * 0.7}px, ${h * 0.12}px) scale(1.1) rotate(15deg)`,
+          opacity: 0.95,
+          offset: 0.78
+        },
+        {
+          transform: `translate(${w + 120}px, -180px) scale(0.65) rotate(35deg)`,
+          opacity: 0,
+          offset: 1
+        }
+      ], {
+        duration: 4200,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+        fill: 'forwards'
+      }).onfinish = () => dragonEl.remove();
+
+      // Vệt stardust, mây ngũ sắc & ngọc rồng theo thân rồng
+      const trailIcons = ['✨', '🌟', '🪷', '🔥', '☁️', '💫', '💖', '🌊', '⭐'];
+      const trailInterval = setInterval(() => {
+        const rect = dragonEl.getBoundingClientRect();
+        if (rect.left > -60 && rect.left < w + 60 && rect.top > -60 && rect.top < h + 60) {
+          const sp = document.createElement('div');
+          sp.className = 'dragon-trail-sparkle';
+          sp.textContent = trailIcons[Math.floor(Math.random() * trailIcons.length)];
+          sp.style.left = `${rect.left + rect.width / 2 + (Math.random() - 0.5) * 50}px`;
+          sp.style.top = `${rect.top + rect.height / 2 + (Math.random() - 0.5) * 50}px`;
+          sp.style.setProperty('--tdx', `${(Math.random() - 0.5) * 80}px`);
+          sp.style.setProperty('--tdy', `${Math.random() * 80 + 30}px`);
+          document.body.appendChild(sp);
+          setTimeout(() => sp.remove(), 1600);
+        }
+      }, 100);
+      setTimeout(() => clearInterval(trailInterval), 4100);
+    }
+
+    /* ========================================================
+       🏮 THẢ ĐÈN TRỜI MANG ƯỚC NGUYỆN BAY LÊN (20 ĐÈN CHIA ĐỀU)
+       ======================================================== */
+    function releaseSingleSkyLantern(posX, wishMessage, options = {}) {
+      const container = document.getElementById('sky-lanterns-container');
+      const lantern = document.createElement('div');
+      lantern.className = 'floating-sky-lantern';
+
+      const scale = options.scale || (Math.random() * 0.35 + 0.8);
+      const duration = options.duration || (Math.random() * 3500 + 7500);
+
+      lantern.style.left = `${posX}px`;
+      lantern.style.animationDuration = `${duration}ms`;
+      lantern.style.setProperty('--l-scale', scale);
+
+      lantern.innerHTML = `
+        <div class="lantern-flame-core">
+          <div class="lantern-flame-glow"></div>
+        </div>
+        ${wishMessage ? `<div class="lantern-wish-label">${wishMessage}</div>` : ''}
+      `;
+
+      container.appendChild(lantern);
+      setTimeout(() => lantern.remove(), duration + 600);
+    }
+
+    function releaseSkyLantern(wishMessage) {
+      const posX = Math.random() * (window.innerWidth - 80) + 40;
+      releaseSingleSkyLantern(posX, wishMessage);
+    }
+
+    // Thả khoảng 20 ngọn đèn trời chia đều toàn màn hình
+    function releaseSwarmSkyLanterns(mainWish) {
+      const count = 20;
+      const screenW = window.innerWidth;
+      const wishPool = [
+        mainWish || "Yêu em trọn đời 💕",
+        "Hạnh phúc ngọt ngào ✨",
+        "Bên nhau trọn kiếp 💖",
+        "Trăng tròn viên mãn 🌕",
+        "Bình an & Rạng rỡ 🌸",
+        "Ước nguyện thành đôi 💑",
+        "Mãi mãi yêu em 🐰",
+        "Vạn sự an vui ⭐"
+      ];
+
+      for (let i = 0; i < count; i++) {
+        // Chia đều 20 cột ngang toàn màn hình (từ 3% đến 97%)
+        const colPercent = (i + 0.5) / count;
+        const basePosX = colPercent * (screenW - 60) + 20;
+        // Jitter nhẹ ngẫu nhiên để đèn trời bay tự nhiên, không bị cứng nhắc
+        const jitter = (Math.random() - 0.5) * (screenW / count * 0.65);
+        const posX = Math.max(10, Math.min(screenW - 50, basePosX + jitter));
+
+        // Phóng so le thời gian (0ms đến 1500ms) tạo làn sóng đèn trời thăng hoa
+        const launchDelay = Math.random() * 1100 + (i % 5) * 90;
+
+        setTimeout(() => {
+          // Các đèn ở giữa mang điều ước người yêu chọn, các đèn khác mang lời chúc ngọt ngào
+          const isMainWish = (i === 9 || i === 10 || i === 8 || i === 11);
+          const hasWishLabel = isMainWish || (i % 3 === 0);
+          const wishText = isMainWish
+            ? (mainWish || "Yêu em trọn đời 💕")
+            : (hasWishLabel ? wishPool[Math.floor(Math.random() * wishPool.length)] : "");
+
+          releaseSingleSkyLantern(posX, wishText, {
+            scale: isMainWish ? 1.15 : (Math.random() * 0.4 + 0.75),
+            duration: Math.random() * 3500 + 7500
+          });
+        }, launchDelay);
+      }
+    }
+
+    // Tự động thả vài ngọn đèn trời lung linh trên nền
+    function startAmbientLanterns() {
+      setInterval(() => {
+        if (Math.random() > 0.4) {
+          releaseSkyLantern("");
+        }
+      }, 5500);
+    }
+
+    /* ========================================================
+       🚀 CHUYỂN TRANG KỲ DIỆU (SCENE 1 -> SCENE 2 & NGƯỢC LẠI)
+       ======================================================== */
+    const scene1 = document.getElementById('scene-1');
+    const scene2 = document.getElementById('scene-2');
+    const flashPortal = document.getElementById('flash-portal');
+    const giftClickTarget = document.getElementById('gift-click-target');
+    const openGiftBtn = document.getElementById('open-gift-btn');
+    const btnBackScene1 = document.getElementById('btn-back-scene1');
+    const btnSendMoreHearts = document.getElementById('btn-send-more-hearts');
+    const btnReleaseLantern = document.getElementById('btn-release-lantern');
+    const rabbitSpeech = document.getElementById('rabbit-speech');
+    const rabbitFigure = document.getElementById('rabbit-figure-emoji');
+
+    function goToScene2(e) {
+      if (e) e.stopPropagation();
+
+      // Âm thanh chuông & nhạc nền
+      playMagicalChime();
+      if (!isMusicPlaying) toggleMusic(true);
+
+      // Pháo hoa tung tóe
+      const rect = giftClickTarget.getBoundingClientRect();
+      triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      // Đổi cảm xúc thỏ sang yêu thương
+      rabbitFigure.textContent = "🥰";
+      rabbitSpeech.textContent = "Yêu thương đong đầy! 💕";
+
+      // Chớp sáng kỳ diệu
+      flashPortal.classList.add('flash');
+      setTimeout(() => flashPortal.classList.remove('flash'), 550);
+
+      // Thả dàn đèn trời chúc mừng bay lên
+      releaseSwarmSkyLanterns(selectedWishText || "Mãi bên nhau 🌕");
+
+      // Chuyển trang mượt mà
+      scene1.classList.add('hidden');
+      scene2.classList.add('active');
+      currentScene = 2;
+      scene2.scrollTop = 0;
+    }
+
+    function goToScene1(e) {
+      if (e) e.stopPropagation();
+      playMagicalChime();
+
+      scene2.classList.remove('active');
+      scene1.classList.remove('hidden');
+      currentScene = 1;
+      rabbitSpeech.textContent = "Trăng đêm nay đẹp quá! 🌕";
+    }
+
+    giftClickTarget.addEventListener('click', goToScene2);
+    openGiftBtn.addEventListener('click', goToScene2);
+    btnBackScene1.addEventListener('click', goToScene1);
+
+    // Nút thả ngàn tim yêu (Trang 2)
+    btnSendMoreHearts.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playMagicalChime();
+      const rect = btnSendMoreHearts.getBoundingClientRect();
+      triggerCelebration(rect.left + rect.width / 2, rect.top);
+
+      const rabbitEmblem = document.getElementById('card-rabbit-icon');
+      rabbitEmblem.style.transform = 'scale(1.4)';
+      setTimeout(() => { rabbitEmblem.style.transform = 'scale(1)'; }, 300);
+    });
+
+    // Nút thả đèn trời mang điều ước (Trang 2): Thả 20 đèn chia đều toàn màn hình!
+    btnReleaseLantern.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playMagicalChime();
+
+      // Thả 20 ngọn đèn trời chia đều toàn màn hình
+      releaseSwarmSkyLanterns(selectedWishText || "Yêu em trọn đời 💕");
+      triggerCelebration(window.innerWidth / 2, window.innerHeight - 80);
+
+      btnReleaseLantern.innerHTML = `<span>20 ngọn đèn trời đang bay lên cung trăng!</span> <span>🏮✨</span>`;
+      setTimeout(() => {
+        btnReleaseLantern.innerHTML = `<span>Thả đèn trời mang ước nguyện bay lên</span> <span>🏮✨</span>`;
+      }, 3000);
+    });
+
+    /* ========================================================
+       🥁 ÂM THANH TRỐNG LÂN SƯ RỒNG (WEB AUDIO API)
+       ======================================================== */
+    function playLionDrumSound(type) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'tung') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.exponentialRampToValueAtTime(45, now + 0.25);
+          gain.gain.setValueAtTime(0.4, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        } else if (type === 'cac') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(250, now + 0.08);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'dinh') {
+          // Nhịp trống lân liên hoàn: Tùng... Tùng... Cắc... Dinh Dinh!
+          const beatTimes = [0, 0.15, 0.3, 0.42, 0.54];
+          const beatTypes = ['tung', 'tung', 'cac', 'tung', 'tung'];
+          beatTimes.forEach((t, i) => {
+            setTimeout(() => playLionDrumSound(beatTypes[i]), t * 1000);
+          });
+        }
+      } catch (e) {
+        console.log("Drum sound error:", e);
+      }
+    }
+
+    /* ========================================================
+       🏮 MODAL BÍ MẬT TRUNG THU TỪ 3 LỒNG ĐÈN
+       ======================================================== */
+    const lanternModal = document.getElementById('lantern-modal');
+    const closeLanternModalBtn = document.getElementById('close-lantern-modal');
+    const lanternModalBadge = document.getElementById('lantern-modal-badge');
+    const lanternModalIcon = document.getElementById('lantern-modal-icon');
+    const lanternModalTitle = document.getElementById('lantern-modal-title');
+    const lanternModalStory = document.getElementById('lantern-modal-story');
+    const lanternModalInteractive = document.getElementById('lantern-modal-interactive');
+    const lanternModalActionBtn = document.getElementById('lantern-modal-action-btn');
+
+    const fortuneQuotes = [
+      "🌟 Quẻ Thượng Thượng: Trăng sáng đêm rằm chiếu rọi trăm hoa, trong lòng anh chỉ có duy nhất một mình em! 💕",
+      "💖 Quẻ Duyên Định: Đêm nay ngắm trăng cùng nhau, mai sau cùng nhau già đi bình yên viên mãn!",
+      "🐰 Quẻ Ngọt Ngào: Thỏ ngọc giã thuốc trường sinh, anh giã tình yêu đậm sâu gửi trọn cho em!",
+      "🌕 Quẻ Viên Mãn: Trăng có tròn có khuyết, nhưng tình yêu anh dành cho em mãi vẹn nguyên không đổi!",
+      "🌸 Quẻ Hạnh Phúc: Mùa trăng nào có em kề bên cũng là mùa trăng rực rỡ và đẹp nhất trần đời! ✨"
+    ];
+
+    const midAutumnRiddles = [
+      {
+        q: "Bánh gì tròn vẹn trăm năm, ăn vào ngọt lịm ấm lòng đôi ta?",
+        options: [
+          "Bánh dẻo hạt sen thơm ngát",
+          "Bánh tình yêu của hai đứa mình chứ đâu! 🥰",
+          "Bánh nướng thập cẩm truyền thống"
+        ],
+        correct: 1,
+        reaction: "Bánh tình yêu của hai đứa mình chứ đâu! Lúc nào cũng ngọt ngào và đong đầy hạnh phúc nhất trần đời! 🥰💖"
+      },
+      {
+        q: "Đêm rằm chú Cuội ngồi đâu?",
+        options: [
+          "Cuội ngồi gốc đa ngắm chị Hằng, còn anh chỉ ngồi ngắm em thôi! 💕",
+          "Cuội ngồi ngắm sao băng một mình",
+          "Cuội trốn dưới tán cây đa ngủ quên"
+        ],
+        correct: 0,
+        reaction: "Cuội ngồi gốc đa ngắm chị Hằng, còn anh chỉ muốn ngồi ngắm em thôi! Vì trong mắt anh em là đẹp nhất! 💕🌕"
+      },
+      {
+        q: "Tết gì rộn rã tiếng cười, vừa ngắm trăng sáng vừa thương em nhiều?",
+        options: [
+          "Tết Đoan Ngọ rộn ràng",
+          "Tết Hàn Thực sum vầy",
+          "Tết Trung Thu bên em yêu dấu! 🌕"
+        ],
+        correct: 2,
+        reaction: "Tết Trung Thu bên em yêu dấu! Có em kề bên thì mùa trăng nào cũng là mùa trăng rực rỡ nhất! 🌕✨"
+      },
+      {
+        q: "Đêm rằm tháng Tám, điều gì lung linh và tỏa sáng nhất trong lòng anh?",
+        options: [
+          "Vầng trăng tròn vành vạnh trên trời",
+          "Hàng ngàn chiếc đèn trời ước nguyện",
+          "Ánh mắt và nụ cười rạng rỡ của em ✨"
+        ],
+        correct: 2,
+        reaction: "Chính là ánh mắt và nụ cười của em! Dù trăng có sáng đến đâu cũng không bằng vẻ đẹp dịu dàng của em! ✨🌸"
+      },
+      {
+        q: "Đố em điều ước lớn nhất của anh khi cùng em đón Tết Trung Thu là gì?",
+        options: [
+          "Mỗi mùa trăng rằm về sau đều có em nắm chặt tay anh 💖",
+          "Được ăn thật nhiều bánh trung thu trứng muối",
+          "Được đi rước đèn lồng suốt đêm"
+        ],
+        correct: 0,
+        reaction: "Mong rằng mọi mùa trăng rằm về sau, bàn tay này vẫn luôn có em nắm chặt! Yêu em thật nhiều! 💕🥰"
+      }
+    ];
+
+    let currentRiddleIndex = 0;
+
+    function renderCurrentRiddle() {
+      const container = document.getElementById('riddle-container');
+      if (!container) return;
+
+      const r = midAutumnRiddles[currentRiddleIndex];
+      const letters = ['A', 'B', 'C'];
+
+      container.innerHTML = `
+        <div class="riddle-question-card">
+          <div class="riddle-q-title">
+            <span style="font-size: 15px;">❓</span>
+            <span><b>Câu đố ${currentRiddleIndex + 1}:</b> ${r.q}</span>
+          </div>
+          <div class="riddle-instruction">👉 Chọn 1 trong 3 đáp án để xem kết quả:</div>
+          <div class="riddle-options-list">
+            ${r.options.map((opt, idx) => `
+              <button type="button" class="riddle-option-btn" data-idx="${idx}">
+                <span class="riddle-opt-letter">${letters[idx]}</span>
+                <span class="riddle-opt-text">${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+          <div class="riddle-feedback" id="riddle-feedback" style="display: none;"></div>
+        </div>
+      `;
+
+      let hasChosen = false;
+      const optionButtons = container.querySelectorAll('.riddle-option-btn');
+      const feedbackEl = document.getElementById('riddle-feedback');
+
+      optionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (hasChosen) return;
+
+          const chosenIdx = parseInt(btn.getAttribute('data-idx'), 10);
+          if (chosenIdx === r.correct) {
+            hasChosen = true;
+            btn.classList.add('is-correct');
+            optionButtons.forEach(b => b.classList.add('disabled'));
+
+            playMagicalChime();
+            const rect = btn.getBoundingClientRect();
+            triggerCelebration(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = 'riddle-feedback correct-feedback';
+            feedbackEl.innerHTML = `
+              <div class="fb-header">🎉 Đúng rồi nè bé ơi!</div>
+              <div class="fb-content">💡 <b>Đáp:</b> ${r.reaction}</div>
+            `;
+          } else {
+            playLionDrumSound('cac');
+            btn.classList.add('is-wrong');
+            setTimeout(() => btn.classList.remove('is-wrong'), 550);
+
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = 'riddle-feedback wrong-feedback';
+            feedbackEl.innerHTML = `
+              <span>😜 Chưa đúng rồi nè! Em thử chọn đáp án khác xem sao nhé 💕</span>
+            `;
+          }
+        });
+      });
+    }
+
+    function openLanternStory(type) {
+      playMagicalChime();
+      triggerCelebration(window.innerWidth / 2, window.innerHeight * 0.4);
+
+      if (type === 'rabbit') {
+        lanternModalBadge.innerHTML = "<span>🐰 BÍ MẬT CUNG TRĂNG & THỎ NGỌC</span>";
+        lanternModalIcon.innerHTML = (CONFIG.images.lanternRabbit && CONFIG.images.lanternRabbit.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternRabbit}" alt="Thỏ Cute" class="lantern-img" style="filter: drop-shadow(0 6px 16px rgba(255, 182, 193, 0.7));">`
+          : SVG_FALLBACKS.lanternRabbit;
+        lanternModalTitle.textContent = "Thỏ Ngọc & Quẻ Bói Tình Duyên";
+        lanternModalStory.textContent = `Truyền thuyết kể rằng trên Cung Quảng Hàn, Thỏ Ngọc quanh năm giã ngọc trường sinh dưới bóng cây đa cùng Chị Hằng.
+
+Cứ mỗi độ rằm tháng Tám, Thỏ Ngọc lại giáng trần ban tặng những điều lành, chúc phúc cho tình duyên của đôi lứa đang yêu nhau luôn ngọt ngào, thủy chung và đong đầy hạnh phúc!`;
+
+        lanternModalInteractive.innerHTML = `
+          <div class="fortune-result-box" id="fortune-box">${fortuneQuotes[0]}</div>
+          <button class="wish-item-btn" id="btn-draw-fortune" style="justify-content: center; margin-top: 6px;">
+            <span>Bốc quẻ tình yêu đêm trăng khác</span> <span>✨</span>
+          </button>
+        `;
+
+        document.getElementById('btn-draw-fortune').addEventListener('click', () => {
+          playMagicalChime();
+          const randomQuote = fortuneQuotes[Math.floor(Math.random() * fortuneQuotes.length)];
+          const fBox = document.getElementById('fortune-box');
+          fBox.textContent = randomQuote;
+          fBox.style.transform = 'scale(1.04)';
+          setTimeout(() => fBox.style.transform = 'scale(1)', 250);
+        });
+
+      } else if (type === 'lion') {
+        lanternModalBadge.innerHTML = "<span>🦁 RỘN RÀNG MÚA LÂN KHAI LỘC</span>";
+        lanternModalIcon.innerHTML = (CONFIG.images.lanternLion && CONFIG.images.lanternLion.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternLion}" alt="Lân Sư Rồng" class="lantern-img" style="filter: drop-shadow(0 6px 16px rgba(255, 190, 61, 0.7));">`
+          : SVG_FALLBACKS.lanternLion;
+        lanternModalTitle.textContent = "Hội Múa Lân - Vui Đêm Hội Trăng";
+        lanternModalStory.textContent = `Điệu múa Lân Sư Rồng rộn ràng trong tiếng trống 'Tùng dinh dinh' là biểu tượng của niềm vui phơi phới, may mắn và tài lộc viên mãn.
+
+Tiếng trống lân rộn rã xua tan mọi âu lo muộn phiền, mang nụ cười rạng rỡ và sự gắn kết yêu thương đến cho hai bạn!`;
+
+        lanternModalInteractive.innerHTML = `
+          <p style="font-size: 12.5px; color: #ffe9a8; font-weight: 600; margin-bottom: 6px;">Gõ trống lân rước lộc cùng anh:</p>
+          <div class="drum-pads-row">
+            <button class="btn-drum-pad" id="drum-tung">🥁 Tùng!</button>
+            <button class="btn-drum-pad" id="drum-cac">🪘 Cắc!</button>
+            <button class="btn-drum-pad" id="drum-dinh">✨ Tùng Dinh!</button>
+          </div>
+          <div id="riddle-container"></div>
+          <button class="wish-item-btn" id="btn-next-riddle" style="justify-content: center; margin-top: 8px;">
+            <span>Mở câu đố Trung Thu tiếp theo</span> <span>🎁</span>
+          </button>
+        `;
+
+        document.getElementById('drum-tung').addEventListener('click', () => playLionDrumSound('tung'));
+        document.getElementById('drum-cac').addEventListener('click', () => playLionDrumSound('cac'));
+        document.getElementById('drum-dinh').addEventListener('click', () => playLionDrumSound('dinh'));
+
+        renderCurrentRiddle();
+
+        document.getElementById('btn-next-riddle').addEventListener('click', () => {
+          playLionDrumSound('tung');
+          currentRiddleIndex = (currentRiddleIndex + 1) % midAutumnRiddles.length;
+          renderCurrentRiddle();
+        });
+
+      } else if (type === 'carp') {
+        lanternModalBadge.innerHTML = "<span>🐟 CÁ CHÉP VỌNG NGUYỆT & VƯỢT VŨ MÔN</span>";
+        lanternModalIcon.innerHTML = (CONFIG.images.lanternCarp && CONFIG.images.lanternCarp.trim() !== "")
+          ? `<img src="${CONFIG.images.lanternCarp}" alt="Cá Chép Dễ Thương" class="lantern-img" style="filter: drop-shadow(0 6px 16px rgba(255, 140, 80, 0.7));">`
+          : SVG_FALLBACKS.lanternCarp;
+        lanternModalTitle.textContent = "Cá Chép Hóa Rồng & Thủy Chung";
+        lanternModalStory.textContent = `Hình ảnh chú cá chép ngắm ánh trăng rằm và vượt qua sóng gió Vũ Môn hóa rồng là biểu tượng của lòng kiên định và tình yêu thủy chung son sắt.
+
+Dù có trải qua bao thử thách cuộc sống, hai đứa mình vẫn luôn nắm chặt tay nhau, cùng nhau cập bến bờ hạnh phúc trọn đời!`;
+
+        if (hasTransformedToDragon) {
+          lanternModalBadge.innerHTML = "<span>🐉 CÁ CHÉP ĐÃ HÓA RỒNG VÀNG HOÀNG KIM! ✨</span>";
+          lanternModalIcon.innerHTML = `<img src="golden_dragon.png" alt="Rồng Vàng Hoàng Kim" class="lantern-img" style="filter: drop-shadow(0 0 25px #ffd700) drop-shadow(0 0 45px rgba(255, 117, 140, 0.85));">`;
+          lanternModalTitle.textContent = "Rồng Vàng Thăng Thiên - Tình Yêu Vĩnh Cửu";
+          lanternModalInteractive.innerHTML = `
+            <div class="fortune-result-box carp-dragon-card" id="carp-blessing-box">
+              <div class="dragon-header">🐉 VƯỢT VŨ MÔN HÓA RỒNG THÀNH CÔNG! ✨</div>
+              <div class="dragon-desc">
+                Cá chép đã hóa thân thành <b>Rồng Vàng Hoàng Kim</b>, mang theo viên ngọc ước nguyện và tình yêu của hai đứa mình bay vút lên chín tầng mây!
+              </div>
+              <div class="dragon-blessing">
+                🌟 Chúc tình yêu của <b>${CONFIG.senderName}</b> & <b>${CONFIG.loverName}</b> muôn đời bền chặt như núi cao, rực rỡ như ánh trăng rằm, hạnh phúc viên mãn trăm năm! 💖🐉
+              </div>
+            </div>
+            <button class="wish-item-btn btn-release-carp-sparkle" id="btn-release-carp" style="justify-content: center; margin-top: 8px;">
+              <span>🐉 Xem lại Rồng Vàng Thăng Thiên</span> <span>✨</span>
+            </button>
+          `;
+        } else {
+          lanternModalBadge.innerHTML = "<span>🐟 CÁ CHÉP VỌNG NGUYỆT & VƯỢT VŨ MÔN</span>";
+          lanternModalIcon.innerHTML = (CONFIG.images.lanternCarp && CONFIG.images.lanternCarp.trim() !== "")
+            ? `<img src="${CONFIG.images.lanternCarp}" alt="Cá Chép Dễ Thương" class="lantern-img" style="filter: drop-shadow(0 6px 16px rgba(255, 140, 80, 0.7));">`
+            : SVG_FALLBACKS.lanternCarp;
+          lanternModalTitle.textContent = "Cá Chép Hóa Rồng & Thủy Chung";
+          lanternModalInteractive.innerHTML = `
+            <div class="fortune-result-box" id="carp-blessing-box" style="font-size: 14px;">
+              🐟 Chúc cho tình yêu của ${CONFIG.senderName} và ${CONFIG.loverName} luôn vững bền, bình an vượt qua mọi sóng gió, mãi mãi thắm thiết như ánh trăng rằm! 💕
+            </div>
+            <button class="wish-item-btn btn-release-carp-sparkle" id="btn-release-carp" style="justify-content: center; margin-top: 8px;">
+              <span>Thả cá chép mang điều ước may mắn</span> <span>🌊✨</span>
+            </button>
+          `;
+        }
+
+        document.getElementById('btn-release-carp').addEventListener('click', () => {
+          startDragonTransformationSequence();
+        });
+      }
+
+      lanternModal.classList.add('active');
+    }
+
+    /* ========================================================
+       🐉 MÀN BIẾN HÌNH ĐIỆN ẢNH: CÁ CHÉP HÓA RỒNG VÀNG
+       ======================================================== */
+    const dragonCinemaOverlay = document.getElementById('dragon-cinema-overlay');
+    const closeDragonCinemaBtn = document.getElementById('close-dragon-cinema');
+    const cinemaBackdrop = document.getElementById('cinema-backdrop');
+    const btnDragonFlySky = document.getElementById('btn-dragon-fly-sky');
+    const cinemaBadge = document.getElementById('cinema-badge');
+    const cinemaAvatarImg = document.getElementById('morph-avatar-img');
+    const cinemaTitle = document.getElementById('cinema-title');
+    const cinemaDesc = document.getElementById('cinema-desc');
+
+    let hasTransformedToDragon = false;
+
+    function startDragonTransformationSequence() {
+      // 1. Đóng bảng nhỏ để tập trung vào màn chiếu điện ảnh
+      closeLanternStory();
+
+      // 2. Phát âm thanh nước sủi bọt & chuỗi đàn hạc
+      playWaterCarpChime();
+
+      // 3. Đưa rạp chiếu về trạng thái bắt đầu: Cá chép vượt sóng
+      cinemaAvatarImg.src = 'lantern_carp.png';
+      cinemaAvatarImg.className = 'morph-avatar-img carp-mode';
+      cinemaBadge.innerHTML = '<span>🌊 CÁ CHÉP ĐANG VƯỢT VŨ MÔN... ✨</span>';
+      cinemaTitle.textContent = 'Cá Chép Vượt Sóng Dữ';
+      cinemaDesc.textContent = `Chú cá chép vàng đang dốc toàn lực vượt qua thác ghềnh Vũ Môn mang theo ước nguyện của ${CONFIG.senderName} & ${CONFIG.loverName}...`;
+
+      dragonCinemaOverlay.classList.add('active');
+
+      // 4. Sau 850ms: KHOẢNH KHẮC BÙNG NỔ HÓA RỒNG VÀNG!
+      setTimeout(() => {
+        // Tiếng gông rồng & fanfare khải hoàn
+        playDragonRoarChime();
+        // Pháo hoa tung tóe
+        triggerCelebration(window.innerWidth / 2, window.innerHeight * 0.45);
+
+        // Biến hình thành RỒNG VÀNG HOÀNG KIM
+        cinemaAvatarImg.src = 'golden_dragon.png';
+        cinemaAvatarImg.className = 'morph-avatar-img dragon-mode';
+        cinemaBadge.innerHTML = '<span>🐉 CÁ CHÉP ĐÃ HÓA RỒNG VÀNG THÀNH CÔNG! ✨</span>';
+        cinemaTitle.innerHTML = '🐉 Rồng Vàng Thăng Thiên!';
+        cinemaDesc.innerHTML = `🌟 Chúc mừng! Cá chép đã hóa thân thành <b>Rồng Vàng Hoàng Kim</b>, chở theo ước nguyện tình yêu của <b>${CONFIG.senderName}</b> & <b>${CONFIG.loverName}</b> bay vút lên cung trăng rằm! 💖✨`;
+
+        hasTransformedToDragon = true;
+
+        // Thả Rồng Vàng khổng lồ bay lượn trên bầu trời
+        spawnFullFlyingDragon();
+      }, 900);
+    }
+
+    function closeDragonCinema() {
+      dragonCinemaOverlay.classList.remove('active');
+      openLanternStory('carp');
+    }
+
+    if (closeDragonCinemaBtn) closeDragonCinemaBtn.addEventListener('click', closeDragonCinema);
+    if (cinemaBackdrop) cinemaBackdrop.addEventListener('click', closeDragonCinema);
+
+    if (btnDragonFlySky) {
+      btnDragonFlySky.addEventListener('click', () => {
+        playDragonRoarChime();
+        triggerCelebration(window.innerWidth / 2, window.innerHeight * 0.5);
+        spawnFullFlyingDragon();
+      });
+    }
+
+    function closeLanternStory() {
+      lanternModal.classList.remove('active');
+    }
+
+    document.getElementById('btn-lantern-rabbit').addEventListener('click', () => openLanternStory('rabbit'));
+    document.getElementById('btn-lantern-lion').addEventListener('click', () => openLanternStory('lion'));
+    document.getElementById('btn-lantern-carp').addEventListener('click', () => openLanternStory('carp'));
+    closeLanternModalBtn.addEventListener('click', closeLanternStory);
+    lanternModalActionBtn.addEventListener('click', () => {
+      triggerCelebration(window.innerWidth / 2, window.innerHeight / 2);
+      playMagicalChime();
+      closeLanternStory();
+    });
+
+    lanternModal.addEventListener('click', (e) => {
+      if (e.target === lanternModal) closeLanternStory();
+    });
+
+    /* ========================================================
+       ✨ CHẠM MÀN HÌNH NẢY ITEM CUTE (TAP EFFECT)
+       ======================================================== */
+    const spawnItems = ['💖', '✨', '🌕', '🐰', '💕', '⭐', '🏮'];
+    function handleScreenTap(e) {
+      if (currentScene !== 1) return;
+      if (e.target.closest('button, .lantern-unit, .gift-interactive-wrapper, .fixed-header, .lantern-modal-overlay')) return;
+
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : window.innerWidth / 2);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : window.innerHeight / 2);
+
+      const spawnEl = document.createElement('div');
+      spawnEl.className = 'tap-spawn-item';
+      spawnEl.textContent = spawnItems[Math.floor(Math.random() * spawnItems.length)];
+      spawnEl.style.left = `${clientX}px`;
+      spawnEl.style.top = `${clientY}px`;
+
+      document.body.appendChild(spawnEl);
+      setTimeout(() => spawnEl.remove(), 1200);
+    }
+
+    window.addEventListener('click', handleScreenTap);
+    window.addEventListener('touchstart', handleScreenTap, { passive: true });
+
+    /* ========================================================
+       🚀 KHỞI ĐỘNG ỨNG DỤNG
+       ======================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      applyConfig();
+      resizeCanvas();
+      renderCanvas();
+      startAmbientLanterns();
+    });
+  </script>
+</body>
+
+</html>
